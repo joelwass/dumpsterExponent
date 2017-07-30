@@ -10,7 +10,8 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import * as actions from '../../modules/app/actions';
 
 import Expo, {
   Font,
@@ -51,8 +52,8 @@ class LoginPage extends React.Component {
 
       console.log(signInResults);
       if (!!signInResults.success) {
-        this.props.navigator.pop();
-        this.toggleLoggedIn(this.state.emailText, this.state.passwordText);
+        this.props.toggleLoggedIn(this.state.emailText, this.state.passwordText);
+        this.props.navigation.goBack(null);
       } else {
         this.showAlert('Error', signInResults.message);
       }
@@ -61,8 +62,8 @@ class LoginPage extends React.Component {
 
       console.log(createAccountResults);
       if (!!createAccountResults.success) {
-        this.props.navigator.pop();
         this.props.toggleLoggedIn(this.state.emailText, this.state.passwordText);
+        this.props.navigation.goBack(null);
       } else {
         this.showAlert('Error', createAccountResults.message);
       }
@@ -107,6 +108,7 @@ class LoginPage extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <View style={ styles.container }>
 
@@ -161,17 +163,6 @@ class LoginPage extends React.Component {
     )
   }
 }
-
-// reset render stuff
-//<View style={ styles.helperTextContainer }>
-//  <Text style={ styles.textHelper }>
-//    { this._showPasswordReset() }
-//  </Text>
-//  <Text style={ [styles.linkSignInLogInText, styles.textHelper] }
-//        onPress = { this._handlePasswordResetPressed() }>
-//    { this._passwordResetLink() }
-//  </Text>
-//</View>
 
 // all state and dispatch actions - this could get messy
 export default connect(

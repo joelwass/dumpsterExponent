@@ -52,16 +52,14 @@ module.exports = {
             'X-Mashape-Key': '0pxNGynXHHmshVuo4XDx3cymsD3mp1OnzyZjsnqhE31IKFCcrW',
           },
         }).then(result => result.json()).then(result => {
-            console.log(result.results.data.length);
-            return shuffle(result.results.data);
-          })
-          .then(result => {
-            module.exports.vocabWords = result;
-            resolve(module.exports.vocabWords.shift());
-          })
-          .catch(err => {
-            reject(err);
-          });
+          console.log(result.results.data.length);
+          return shuffle(result.results.data);
+        }).then(result => {
+          module.exports.vocabWords = result;
+          resolve(module.exports.vocabWords.shift());
+        }).catch(err => {
+          reject(err);
+        });
       } else {
         resolve(module.exports.vocabWords.shift());
       }
@@ -112,14 +110,12 @@ module.exports = {
       },
       body: JSON.stringify(body),
     }).then(result => {
-        return result.json()
-      })
-      .then(result => {
-        return result;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      return result.json()
+    }).then(result => {
+      return result;
+    }).catch(err => {
+      console.log(err);
+    });
   },
   // sign in for a user
   signIn: function(email, password) {
@@ -135,14 +131,11 @@ module.exports = {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    })
-      .then(result =>  result.json())
-      .then(result => {
-        return result;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    }).then(result =>  result.json()).then(result => {
+      return result;
+    }).catch(err => {
+      console.log(err);
+    });
   },
 };
 
