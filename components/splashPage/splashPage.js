@@ -27,7 +27,6 @@ class SplashPage extends React.Component {
   };
 
   componentWillMount() {
-    console.log(this.props.navigator);
     this._loadAssetsAsync();
   }
 
@@ -54,14 +53,14 @@ class SplashPage extends React.Component {
 
         <Image
           style={ styles.gifContainer }
-          source={ gifAddress }
+          source={ require('../../assets/images/DumpLoopTrans2.gif') }
           resizeMode="contain"
         />
 
         { (this.props.loggedIn || this.props.playAsGuest) &&
           <View>
             <TouchableHighlight
-              onPress= { () => this.props.navigator.push({ id: 'trivia' }) }
+              onPress= { () => this.props.navigation.navigate('Trivia') }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Trivia Builder
@@ -69,7 +68,7 @@ class SplashPage extends React.Component {
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress= { () => this.props.navigator.push({ id: 'vocab' }) }
+              onPress= { () => this.props.navigation.navigate('Vocab') }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Vocab Builder
@@ -77,7 +76,7 @@ class SplashPage extends React.Component {
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress= { () => this.props.navigator.push({ id: 'stats' }) }
+              onPress= { () => this.props.navigation.navigate('Stats') }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Stats
@@ -109,7 +108,7 @@ class SplashPage extends React.Component {
         { !(this.props.loggedIn || this.props.playAsGuest) &&
           <View style={ styles.container }>
             <TouchableHighlight
-              onPress={ () => this.props.navigator.push({ id: 'login' }) }
+              onPress={ () => this.props.navigation.navigate('Login') }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Sign In

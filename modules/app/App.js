@@ -5,6 +5,9 @@ import {
   Text,
   TouchableHighlight,
 } from 'react-native';
+import {
+  StackNavigator,
+} from 'react-navigation';
 import { Navigator } from 'react-native-deprecated-custom-components';
 import { connect } from 'react-redux'
 
@@ -17,32 +20,40 @@ import {
 } from '../../components';
 import * as actions from './actions';
 
-const App = (props) => {
+const App = StackNavigator({
+  Home: { screen: SplashPage },
+  Trivia: { screen: TriviaPage },
+  Vocab: { screen: VocabPlayPage },
+  Stats: { screen: StatsPage },
+  Login: { screen: LoginPage },
+});
 
-  _navigatorRenderScene = (route, navigator) => {
-    console.log(this);
-    _navigator = navigator;
-    switch (route.id) {
-      case 'splash':
-        return (<SplashPage navigator={ _navigator } title="Splash" />);
-      case 'trivia':
-        return (<TriviaPage navigator={ _navigator } title="Trivia" />);
-      case 'vocab':
-        return (<VocabPlayPage navigator={ _navigator } title="Vocab" />);
-      case 'stats':
-        return (<StatsPage navigator={ _navigator } title="Stats" />);
-      case 'login':
-        return (<LoginPage navigator={ _navigator } title='Login' />);
-    }
-  }
-
-  return (
-    <Navigator
-      initialRoute={{ id: 'splash' }}
-      renderScene={ this._navigatorRenderScene }
-    />
-  )
-}
+//const App = (props) => {
+//
+//  _navigatorRenderScene = (route, navigator) => {
+//    console.log(this);
+//    _navigator = navigator;
+//    switch (route.id) {
+//      case 'splash':
+//        return (<SplashPage navigator={ _navigator } title="Splash" />);
+//      case 'trivia':
+//        return (<TriviaPage navigator={ _navigator } title="Trivia" />);
+//      case 'vocab':
+//        return (<VocabPlayPage navigator={ _navigator } title="Vocab" />);
+//      case 'stats':
+//        return (<StatsPage navigator={ _navigator } title="Stats" />);
+//      case 'login':
+//        return (<LoginPage navigator={ _navigator } title='Login' />);
+//    }
+//  }
+//
+//  return (
+//    <Navigator
+//      initialRoute={{ id: 'splash' }}
+//      renderScene={ this._navigatorRenderScene }
+//    />
+//  )
+//}
 
 App.displayName = 'Dumpster';
 App.propTypes = {
