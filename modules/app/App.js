@@ -28,33 +28,6 @@ const App = StackNavigator({
   Login: { screen: LoginPage },
 });
 
-//const App = (props) => {
-//
-//  _navigatorRenderScene = (route, navigator) => {
-//    console.log(this);
-//    _navigator = navigator;
-//    switch (route.id) {
-//      case 'splash':
-//        return (<SplashPage navigator={ _navigator } title="Splash" />);
-//      case 'trivia':
-//        return (<TriviaPage navigator={ _navigator } title="Trivia" />);
-//      case 'vocab':
-//        return (<VocabPlayPage navigator={ _navigator } title="Vocab" />);
-//      case 'stats':
-//        return (<StatsPage navigator={ _navigator } title="Stats" />);
-//      case 'login':
-//        return (<LoginPage navigator={ _navigator } title='Login' />);
-//    }
-//  }
-//
-//  return (
-//    <Navigator
-//      initialRoute={{ id: 'splash' }}
-//      renderScene={ this._navigatorRenderScene }
-//    />
-//  )
-//}
-
 App.displayName = 'Dumpster';
 App.propTypes = {
   loggedIn: PropTypes.bool.isRequired,

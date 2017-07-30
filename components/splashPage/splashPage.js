@@ -22,6 +22,11 @@ import * as Api from '../../api/api.js';
 
 class SplashPage extends React.Component {
 
+  static navigationOptions = {
+    title: 'Home',
+    header: null
+  };
+
   state = {
     isReady: false,
   };
@@ -60,7 +65,7 @@ class SplashPage extends React.Component {
         { (this.props.loggedIn || this.props.playAsGuest) &&
           <View>
             <TouchableHighlight
-              onPress= { () => this.props.navigation.navigate('Trivia') }
+              onPress= { () => this.props.navigation.navigate('Trivia', { title: 'Brain Builder' }) }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Trivia Builder
@@ -68,7 +73,7 @@ class SplashPage extends React.Component {
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress= { () => this.props.navigation.navigate('Vocab') }
+              onPress= { () => this.props.navigation.navigate('Vocab', { title: 'Vocab Builder' }) }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Vocab Builder
@@ -76,7 +81,7 @@ class SplashPage extends React.Component {
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress= { () => this.props.navigation.navigate('Stats') }
+              onPress= { () => this.props.navigation.navigate('Stats', { title: 'Stats' }) }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Stats
@@ -108,7 +113,7 @@ class SplashPage extends React.Component {
         { !(this.props.loggedIn || this.props.playAsGuest) &&
           <View style={ styles.container }>
             <TouchableHighlight
-              onPress={ () => this.props.navigation.navigate('Login') }
+              onPress={ () => this.props.navigation.navigate('Login', { title: 'Login' }) }
               style={ styles.button }>
               <Text style={ styles.buttonText }>
                 Sign In

@@ -22,6 +22,10 @@ import * as actions from '../../modules/app/actions';
 
 class VocabPage extends React.Component {
 
+  static navigationOptions = {
+    title: 'Vocab Builder',
+  };
+
   state = {
     isReady: false,
     currentWord: '',
@@ -90,10 +94,6 @@ class VocabPage extends React.Component {
 
     return (
       <View style={ styles.container }>
-
-        <TouchableHighlight onPress={() => this.props.navigator.pop()}>
-          <Text style={ styles.font }>Back</Text>
-        </TouchableHighlight>
 
         <Text style={ [styles.title, styles.font] }> Learn your vocab! </Text>
 

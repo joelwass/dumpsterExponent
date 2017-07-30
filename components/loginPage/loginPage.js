@@ -19,6 +19,10 @@ import * as Api from '../../api/api.js';
 
 class LoginPage extends React.Component {
 
+  static navigationOptions = {
+    title: 'Login',
+  };
+
   state = {
     loginSignUp: 'Sign In',
     emailText: '',
@@ -105,11 +109,6 @@ class LoginPage extends React.Component {
   render() {
     return (
       <View style={ styles.container }>
-
-        <TouchableHighlight
-          onPress={() => this.props.navigator.pop()}>
-          <Text>Back</Text>
-        </TouchableHighlight>
 
         <View style={ styles.loginFieldsContainer }>
           <Text style={ [styles.emailOrPasswordTitleText, styles.textHelper] }>

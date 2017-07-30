@@ -16,6 +16,10 @@ import Expo from 'expo';
 
 class StatsPage extends React.Component {
 
+  static navigationOptions = {
+    title: 'Stats',
+  };
+
   state = {
     appIsReady: false,
   }
@@ -28,10 +32,6 @@ class StatsPage extends React.Component {
 
     return (
       <View style={ styles.container }>
-
-        <TouchableHighlight onPress={() => this.props.navigator.pop()}>
-          <Text>Exit</Text>
-        </TouchableHighlight>
         <Text style={ styles.title }> Stats </Text>
         <Text style={ styles.info }> Total Correct Trivia Guesses: { this.props.correctTriviaCount } </Text>
         <Text style={ styles.info }> Total Incorrect Trivia Guesses: { this.props.incorrectTriviaCount } </Text>

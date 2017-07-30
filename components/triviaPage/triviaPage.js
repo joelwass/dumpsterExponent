@@ -20,6 +20,10 @@ import * as actions from '../../modules/app/actions';
 
 class TriviaPage extends React.Component {
 
+  static navigationOptions = {
+    title: 'Brain Builder',
+  };
+
   state = {
     appIsReady: false,
     answers: ['loading...', 'loading...', 'loading...', 'loading...'],
@@ -98,10 +102,6 @@ class TriviaPage extends React.Component {
 
     return (
       <View style={ styles.container }>
-
-        <TouchableHighlight onPress={() => this.props.navigator.pop()}>
-          <Text>Exit</Text>
-        </TouchableHighlight>
 
         <View>
           <Text
