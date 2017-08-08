@@ -30,11 +30,11 @@ class TriviaPage extends React.Component {
     currentQuestion: {},
     modalVisible: false,
     isReady: false,
-  }
+  };
 
   componentWillMount() {
     this._getNextQuestion();
-  }
+  };
 
   _setAnswers = (question) => {
     let answers = [question.answer,
@@ -52,7 +52,7 @@ class TriviaPage extends React.Component {
     answers[correctAnswerIndex] = tmpCorrectAnswer;
 
     this.setState({ answers, isReady: true });
-  }
+  };
 
   _getNextQuestion = async () => {
     this.setState({ isReady: false });
@@ -63,15 +63,15 @@ class TriviaPage extends React.Component {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   _setModalVisible = () => {
     this.setState({ modalVisible: true });
-  }
+  };
 
   _setModalInvisible = () => {
     this.setState({ modalVisible: false });
-  }
+  };
 
   _answerSelected = (i) => {
     if (i === this.state.correctAnswerIndex) { // correct answer selected
@@ -86,14 +86,14 @@ class TriviaPage extends React.Component {
     } else { // incorrect answer selected
       this.props.bumpIncorrectTrivia();
     }
-  }
+  };
 
   _skipQuestion = () => {
     // increment skipped questions
     this.props.bumpSkippedTrivia();
     // then get next question
     this._getNextQuestion();
-  }
+  };
 
   render() {
     if (!this.state.isReady) {
@@ -150,7 +150,7 @@ class TriviaPage extends React.Component {
         </TouchableHighlight>
 
         <LearnMoreModal modalVisible={ this.state.modalVisible }
-          correctAnswer={ this.state.answers[this.state.correctAnswerIndex] }
+          correctAnswer={ this.state.currentQuestion.wikipediaQuery || this.state.answers[this.state.correctAnswerIndex] }
           closeModal={ this._setModalInvisible.bind(this) }/>
 
       </View>
