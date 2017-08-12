@@ -43,7 +43,7 @@ export default class LearnMore extends React.Component {
           </TouchableHighlight>
 
           <WebView
-            source={{ uri: `https://en.wikipedia.org/wiki/${ this.props.correctAnswer.replace(/\s+/g, '') }` }}
+            source={{ uri: `https://en.wikipedia.org/wiki/${ this.props.correctAnswer.replace(/\s+/g, '_') }` }}
             style={ [styles.detailsContainer] }
           />
         </Modal>
