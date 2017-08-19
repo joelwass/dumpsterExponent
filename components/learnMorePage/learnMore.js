@@ -36,11 +36,17 @@ export default class LearnMore extends React.Component {
           supportedOrientations={ ['portrait'] }
           style={ styles.container }
         >
+          <View
+            style={ styles.hrLine }></View>
+
           <TouchableHighlight
             onPress={ () => this.props.closeModal() }
             style={ [styles.modalCloseButton] }>
-            <Text style={ styles.font }>Back To Dumpster</Text>
+            <Text style={ styles.font }>Close</Text>
           </TouchableHighlight>
+
+          <View
+            style={{ borderBottomColor: 'black', borderBottomWidth: 1 }}></View>
 
           <WebView
             source={{ uri: `https://en.wikipedia.org/wiki/${ this.props.correctAnswer.replace(/\s+/g, '_') }` }}
@@ -55,13 +61,14 @@ export default class LearnMore extends React.Component {
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#f5fcff',
-    alignItems: 'center',
-  },
-  modalCloseButton: {
-    marginTop: 20,
   },
   font: {
     textAlign: 'center',
     fontSize: 18,
   },
+  hrLine: {
+    marginTop: 20,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+  }
 });
