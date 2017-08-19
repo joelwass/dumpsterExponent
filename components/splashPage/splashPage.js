@@ -16,6 +16,7 @@ import { LoadingPage } from '../../components';
 import Expo, {
   Asset,
   Font,
+  FacebookAds,
 } from 'expo';
 const gifAddress = require('../../assets/images/DumpLoopTrans2.gif');
 import * as Api from '../../api/api.js';
@@ -42,6 +43,15 @@ class SplashPage extends React.Component {
     this.setState({ isReady: true });
   }
 
+  _navigateToAdThenScreen = (screen) => {
+    FacebookAds.InterstitialAdManager.showAd('923608721056131_1433457360071262')
+      .then(didClick => {
+        this.props.navigation.navigate(screen)
+      }).catch(error => {
+        this.props.navigation.navigate(screen)
+      });
+  }
+
   render() {
 
     if (!this.state.isReady) {
@@ -62,74 +72,23 @@ class SplashPage extends React.Component {
           resizeMode="contain"
         />
 
-        { (this.props.loggedIn || this.props.playAsGuest) &&
-          <View>
-            <TouchableHighlight
-              onPress= { () => this.props.navigation.navigate('Trivia') }
-              style={ styles.button }>
-              <Text style={ styles.buttonText }>
-                Trivia Builder
-              </Text>
-            </TouchableHighlight>
+        <View>
+          <TouchableHighlight
+            onPress= { () => this._navigateToAdThenScreen('Trivia') }
+            style={ styles.button }>
+            <Text style={ styles.buttonText }>
+              Trivia Builder
+            </Text>
+          </TouchableHighlight>
 
-            <TouchableHighlight
-              onPress= { () => this.props.navigation.navigate('Vocab') }
-              style={ styles.button }>
-              <Text style={ styles.buttonText }>
-                Vocab Builder
-              </Text>
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              onPress= { () => this.props.navigation.navigate('Stats') }
-              style={ styles.button }>
-              <Text style={ styles.buttonText }>
-                Stats
-              </Text>
-            </TouchableHighlight>
-
-            { this.props.loggedIn ?
-              (
-                <TouchableHighlight
-                  onPress= { () => this.props.toggleLoggedIn() }
-                  style={ styles.button }>
-                  <Text style={ styles.buttonText }>
-                    Log Out
-                  </Text>
-                </TouchableHighlight>
-              ) : (
-                <TouchableHighlight
-                  onPress= { () => this.props.togglePlayAsGuest() }
-                  style={ styles.button }>
-                  <Text style={ styles.buttonText }>
-                    Leave Guest Session
-                  </Text>
-                </TouchableHighlight>
-              )
-            }
-          </View>
-        }
-
-        { !(this.props.loggedIn || this.props.playAsGuest) &&
-          <View style={ styles.container }>
-            <TouchableHighlight
-              onPress={ () => this.props.navigation.navigate('Login') }
-              style={ styles.button }>
-              <Text style={ styles.buttonText }>
-                Sign In
-              </Text>
-            </TouchableHighlight>
-
-            <Text>Or</Text>
-
-            <TouchableHighlight
-              onPress ={ () => this.props.togglePlayAsGuest() }
-              style={ styles.button }>
-              <Text style={ styles.buttonText }>Play as guest</Text>
-            </TouchableHighlight>
-          </View>
-        }
-
+          <TouchableHighlight
+            onPress= { () => this._navigateToAdThenScreen('Vocab') }
+            style={ styles.button }>
+            <Text style={ styles.buttonText }>
+              Vocab Builder
+            </Text>
+          </TouchableHighlight>
+        </View>
       </View>
     )
   }
