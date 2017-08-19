@@ -2,6 +2,7 @@ import {
   TOGGLE_LOGGED_IN,
   TOGGLE_PLAY_AS_GUEST,
   SET_USERNAME,
+  SET_USERID,
   BUMP_CORRECT_TRIVIA,
   BUMP_INCORRECT_TRIVIA,
   BUMP_VOCAB_COUNT,
@@ -20,6 +21,14 @@ import {
 export const toggleLoggedIn = () => {
   return {
     type: TOGGLE_LOGGED_IN,
+  }
+};
+export const setUserId = (userId) => {
+  return {
+    type: SET_USERID,
+    payload: {
+      userId
+    }
   }
 };
 export const togglePlayAsGuest = () => {

@@ -89,7 +89,7 @@ module.exports = {
 
   },
   // authenticate a use to see if they are logged in or logged out with their current tokens
-  authenticate: function() {
+  authenticate: function(userId) {
 
   },
   // sign out for a user

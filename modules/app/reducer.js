@@ -3,6 +3,7 @@ import {
   TOGGLE_LOGGED_IN,
   TOGGLE_PLAY_AS_GUEST,
   SET_USERNAME,
+  SET_USERID,
   BUMP_CORRECT_TRIVIA,
   BUMP_INCORRECT_TRIVIA,
   BUMP_VOCAB_COUNT,
@@ -16,6 +17,7 @@ const initialState = {
   skippedTriviaCount: 0,
   vocabCount: 0,
   username: '',
+  userId: '',
   incorrectTriviaCount: 0,
 }
 
@@ -79,6 +81,12 @@ export default handleActions({
     return {
       ...state,
       username: action,
+    }
+  },
+  [SET_USERID]: (state, action) => {
+    return {
+      ...state,
+      userId: action,
     }
   },
   [BUMP_INCORRECT_TRIVIA]: (state, action) => {
