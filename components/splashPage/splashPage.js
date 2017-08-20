@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Image,
   View,
-  Platform,
   StatusBar,
   Text,
   Platform,
