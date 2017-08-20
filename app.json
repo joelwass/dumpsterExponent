@@ -8,7 +8,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
-    "icon": "./assets/icons/DumpsterLogo1024.png",
+    "icon": "./assets/icons/DumpsterLogo512.png",
     "loading": {
       "icon": "./assets/icons/loading-icon.png",
       "hideExponentText": false
@@ -17,11 +17,11 @@
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
-      "bundleIdentifier": "com.dumpster.yourappname",
+      "bundleIdentifier": "com.ivet.Dumpster-expo",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.yourcompany.yourappname"
+      "package": "com.ivet.Dumpster"
     }
   }
 }
