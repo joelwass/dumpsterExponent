@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "dumpster-expo",
+    "name": "Dumpster-Expo",
     "description": "Build your brain while taking unavoidable trips to the bathroom with Dumpster's trivia and vocab builders!",
-    "slug": "dumpster-expo",
+    "slug": "Dumpster-Expo",
     "privacy": "public",
     "sdkVersion": "19.0.0",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/DumpsterLogo512.png",
