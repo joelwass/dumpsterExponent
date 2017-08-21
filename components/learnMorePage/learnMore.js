@@ -7,6 +7,7 @@ var {
   Text,
   TouchableHighlight,
   View,
+  Platform,
 } = ReactNative;
 
 import * as Exponent from 'expo';
@@ -67,7 +68,14 @@ var styles = StyleSheet.create({
     fontSize: 18,
   },
   hrLine: {
-    marginTop: 20,
+    ...Platform.select({
+      ios: {
+        marginTop: 20
+      },
+      android: {
+        marginTop: 0
+      }
+    }),
     borderBottomColor: 'black',
     borderBottomWidth: 1,
   }
