@@ -117,7 +117,9 @@ class TriviaPage extends React.Component {
         <TouchableHighlight
           ref="backAngleBracket"
           style={ styles.backAngleBracket }
-          onPress={ () => this._getPreviousQuestion() }>
+          onPress={ () => this._getPreviousQuestion() }
+          activeOpacity={0}
+          underlayColor='transparent'>
           <Entypo name="chevron-thin-left" size={40} color="blue"/>
         </TouchableHighlight>
 
@@ -173,7 +175,9 @@ class TriviaPage extends React.Component {
         <TouchableHighlight
           ref="forwardAngleBracket"
           style={ styles.forwardAngleBracket }
-          onPress={ () => this._skipQuestion() }>
+          onPress={ () => this._skipQuestion() }
+          activeOpacity={0}
+          underlayColor='transparent'>
           <Entypo name="chevron-thin-right" size={40} color="blue"/>
         </TouchableHighlight>
 
@@ -242,16 +246,13 @@ const styles = StyleSheet.create({
   },
   forwardAngleBracket: {
     height: 100,
-    backgroundColor: 'red',
     flex: 1,
   },
   backAngleBracket: {
     height: 100,
-    backgroundColor: 'red',
     flex: 1,
   },
   questionDisplay: {
     flex: 8,
-    backgroundColor: 'green',
   }
 });
