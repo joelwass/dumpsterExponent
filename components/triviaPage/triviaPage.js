@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import * as Exponent from 'expo';
+import { Entypo } from '@expo/vector-icons';
 import * as Api from '../../api/api.js';
 import { LearnMoreModal, LoadingPage } from '../../components';
 
@@ -88,6 +89,16 @@ class TriviaPage extends React.Component {
     }
   };
 
+  _getPreviousQuestion = async () => {
+    try {
+      const currentQuestion = await Api.getPreviousTriviaQuestion();
+      this._setAnswers(currentQuestion);
+      this.setState({currentQuestion});
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   _skipQuestion = () => {
     // increment skipped questions
     this.props.bumpSkippedTrivia();
@@ -103,50 +114,67 @@ class TriviaPage extends React.Component {
     return (
       <View style={ styles.container }>
 
-        <View>
-          <Text
-            style={ [styles.title ] }
-            selectable={ true }
-            accessible={ true }
-            numberOfLines={ 5 }>
-            { this.state.currentQuestion.question }
-          </Text>
+        <TouchableHighlight
+          ref="backAngleBracket"
+          style={ styles.backAngleBracket }
+          onPress={ () => this._getPreviousQuestion() }>
+          <Entypo name="chevron-thin-left" size={40} color="blue"/>
+        </TouchableHighlight>
+
+        <View ref="questionDisplayView"
+          style={ styles.questionDisplay }>
+          <View>
+            <Text
+              style={ [styles.title ] }
+              selectable={ true }
+              accessible={ true }
+              numberOfLines={ 5 }>
+              { this.state.currentQuestion.question }
+            </Text>
+          </View>
+
+          {
+            this.state.answers.map((item, i) => {
+              if (i === this.state.correctAnswerIndex) {
+                return (
+                  <TouchableHighlight
+                    key={ i }
+                    underlayColor="grey"
+                    onPress={ () => this._answerSelected(i) }
+                    style={ [styles.answerButton] }>
+                    <Text
+                      style={ [styles.answerText] }>
+                      { item }
+                    </Text>
+                  </TouchableHighlight>
+                );
+              } else {
+                return (
+                  <TouchableHighlight
+                    key={ i }
+                    underlayColor="red"
+                    onPress={ () => this._answerSelected(i) }
+                    style={ [styles.answerButton] }>
+                    <Text
+                      style={ [styles.answerText] }>
+                      { item }
+                    </Text>
+                  </TouchableHighlight>
+                );
+              }
+            })
+          }
+
+          <TouchableHighlight style={ styles.nextQuestion } onPress={() => this._skipQuestion() }>
+            <Text style={ styles.helperButtons }>Next Question</Text>
+          </TouchableHighlight>
         </View>
 
-        {
-          this.state.answers.map((item, i) => {
-            if (i === this.state.correctAnswerIndex) {
-              return (
-                <TouchableHighlight
-                  key={ i }
-                  underlayColor="grey"
-                  onPress={ () => this._answerSelected(i) }
-                  style={ [styles.answerButton] }>
-                  <Text
-                    style={ [styles.answerText] }>
-                    { item }
-                  </Text>
-                </TouchableHighlight>
-              );
-            } else {
-              return (
-                <TouchableHighlight
-                  key={ i }
-                  underlayColor="red"
-                  onPress={ () => this._answerSelected(i) }
-                  style={ [styles.answerButton] }>
-                  <Text
-                    style={ [styles.answerText] }>
-                    { item }
-                  </Text>
-                </TouchableHighlight>
-              );
-            }
-          })
-        }
-
-        <TouchableHighlight style={ styles.body } onPress={() => this._skipQuestion() }>
-          <Text style={ styles.helperButtons }>Next Question</Text>
+        <TouchableHighlight
+          ref="forwardAngleBracket"
+          style={ styles.forwardAngleBracket }
+          onPress={ () => this._skipQuestion() }>
+          <Entypo name="chevron-thin-right" size={40} color="blue"/>
         </TouchableHighlight>
 
         <LearnMoreModal modalVisible={ this.state.modalVisible }
@@ -179,15 +207,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 40,
-    flexDirection:'column',
+    flexDirection:'row',
   },
   title: {
     fontSize: 20,
-    marginTop: 60,
     marginBottom: 25,
-    marginLeft: 20,
-    marginRight: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
     textAlign: 'center',
   },
   answerText: {
@@ -206,9 +232,26 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: 'black',
-    marginLeft: 40,
+    marginLeft: 20,
     marginTop: 5,
-    marginRight: 40,
+    marginRight: 20,
     borderRadius: 10,
+  },
+  nextQuestion: {
+    alignItems: 'center',
+  },
+  forwardAngleBracket: {
+    height: 100,
+    backgroundColor: 'red',
+    flex: 1,
+  },
+  backAngleBracket: {
+    height: 100,
+    backgroundColor: 'red',
+    flex: 1,
+  },
+  questionDisplay: {
+    flex: 8,
+    backgroundColor: 'green',
   }
 });

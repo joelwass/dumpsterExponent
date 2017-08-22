@@ -4,6 +4,7 @@ module.exports = {
 
   vocabWords: [],
   triviaQuestions: [],
+  triviaIndex: 0,
 
   // get trivia questions from database and store them locally
   getTriviaQuestion: function() {
@@ -11,7 +12,7 @@ module.exports = {
 
     return new Promise((resolve, reject) => {
       // if we have questions already, just return the next one, if not, grab them all again
-      if (module.exports.triviaQuestions.length === 0) {
+      if (module.exports.triviaQuestions.length === module.exports.triviaIndex) {
         return fetch(`https://dumpster.herokuapp.com/api/v1/trivia`, {
           method: 'GET',
           headers: {
@@ -20,18 +21,27 @@ module.exports = {
         }).then(result => result.json()).then(result => {
             if (result.success !== 'true') Promise.reject(result.message);
             // get out the trivia questions from the response
+            module.exports.triviaIndex = 0;
             return shuffle(result.trivia);
           })
           .then(result => {
             module.exports.triviaQuestions = result;
-            resolve(module.exports.triviaQuestions.shift());
+            resolve(module.exports.triviaQuestions[module.exports.triviaIndex]);
           })
           .catch(err => {
             reject(err);
           });
       } else {
-        resolve(module.exports.triviaQuestions.shift());
+        module.exports.triviaIndex++;
+        resolve(module.exports.triviaQuestions[module.exports.triviaIndex]);
       }
+    });
+  },
+  // get previous trivia question
+  getPreviousTriviaQuestion: function() {
+    return new Promise((resolve, reject) => {
+      if (module.exports.triviaIndex !== 0) module.exports.triviaIndex--;
+      resolve(module.exports.triviaQuestions[module.exports.triviaIndex]);
     });
   },
   // get vocab terms from third party and store them locally as well as in our own db - need to look for collisions based on word
