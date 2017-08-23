@@ -76,7 +76,7 @@ class TriviaPage extends React.Component {
 
   _answerSelected = (i) => {
     if (i === this.state.correctAnswerIndex) { // correct answer selected
-      Alert.alert('Correct!', null,
+      Alert.alert(`Correct! ${this.state.answers[this.state.correctAnswerIndex]} is the correct answer`, null,
         [
           {text: 'Learn More', onPress: () => this._setModalVisible()},
           {text: 'Next', onPress: () => this._getNextQuestion()},
