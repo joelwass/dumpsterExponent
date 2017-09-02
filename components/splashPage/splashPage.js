@@ -97,6 +97,14 @@ class SplashPage extends React.Component {
               Vocab Builder
             </Text>
           </TouchableHighlight>
+
+          <TouchableHighlight
+            onPress= { () => this._navigateToAdThenScreen('TopNews') }
+            style={ styles.button }>
+            <Text style={ styles.buttonText }>
+              Todays Top News
+            </Text>
+          </TouchableHighlight>
         </View>
       </View>
     )

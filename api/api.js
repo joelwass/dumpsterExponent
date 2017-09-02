@@ -1,4 +1,6 @@
-
+const newsSources = ['associated-press', 'bloomberg', 'bbc-news', 'buzzfeed', 'business-insider', 'google-news', 'fortune', 'techcrunch', 'the-washington-post', 'the-new-york-times', 'the-wall-street-journal'];
+const prodPrefix = 'https://dumpster.herokuapp.com/api/v1';
+const localPrefix = 'http://localhost:3000/api/v1';
 
 module.exports = {
 
@@ -13,7 +15,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       // if we have questions already, just return the next one, if not, grab them all again
       if (module.exports.triviaQuestions.length === module.exports.triviaIndex) {
-        return fetch(`https://dumpster.herokuapp.com/api/v1/trivia`, {
+        return fetch(`${localPrefix}/trivia`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -46,52 +48,37 @@ module.exports = {
   },
   // get vocab terms from third party and store them locally as well as in our own db - need to look for collisions based on word
   getVocabTerm: function() {
-
     return new Promise((resolve, reject) => {
       // use testing keys
-      // test key: 0pxNGynXHHmshVuo4XDx3cymsD3mp1OnzyZjsnqhE31IKFCcrW
       console.log(module.exports.vocabWords.length);
       if (module.exports.vocabWords.length === 0) {
         console.log('fetching new words');
-        const randomPage = parseInt(Math.random() * 100); // get random page between 1 and 10;
-        return fetch(`https://wordsapiv1.p.mashape.com/words/?hasDetails=hasUsages,hasCategories&page=${randomPage}&limit=10`, {
+        return fetch(`${localPrefix}/fetchVocab`, {
           method: 'GET',
           headers: {
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-Mashape-Key': '0pxNGynXHHmshVuo4XDx3cymsD3mp1OnzyZjsnqhE31IKFCcrW',
           },
         }).then(result => result.json()).then(result => {
-          console.log(result.results.data.length);
-          return shuffle(result.results.data);
+          return shuffle(result.results.results.data);
         }).then(result => {
           module.exports.vocabWords = result;
           resolve(module.exports.vocabWords.shift());
-        }).catch(err => {
-          reject(err);
-        });
+        }).catch(err => reject(err));
       } else {
         resolve(module.exports.vocabWords.shift());
       }
     });
   },
   getVocabWordDetails: function(word) {
-
     return new Promise((resolve, reject) => {
-      // test key: 0pxNGynXHHmshVuo4XDx3cymsD3mp1OnzyZjsnqhE31IKFCcrW
       console.log('fetching vocab word details');
-      return fetch(`https://wordsapiv1.p.mashape.com/words/${word}`, {
+      return fetch(`${localPrefix}/fetchWordDetails?word=${word}`, {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'X-Mashape-Key': '0pxNGynXHHmshVuo4XDx3cymsD3mp1OnzyZjsnqhE31IKFCcrW',
         }
-      }).then(result => result.json()).then(result => {
-        resolve(result);
-      }).catch(err => {
-        reject(err);
-      })
+      }).then(result => resolve(result))
+        .catch(err => reject(err));
     });
   },
   // update the db with the current state being the score, question indexes, etc.
@@ -106,6 +93,23 @@ module.exports = {
   signOut: function() {
 
   },
+  getNewsSources: function() {
+    return new Promise((resolve, reject) => {
+      console.log('fetching vocab word details');
+      return fetch(`${localPrefix}/fetchNewsSources`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then(result => result.json())
+        .then(result => {
+          const sources = result.results.sources;
+          const returnSources = sources.filter(source => newsSources.includes(source.id));
+          console.log(returnSources);
+          resolve(returnSources);
+        }).catch(err => reject(err));
+    });
+  },
   createAccount: function(email, password) {
     console.log('create account');
     const body = {
@@ -113,19 +117,15 @@ module.exports = {
       password: password,
     };
 
-    return fetch(`https://dumpster.herokuapp.com/api/v1/users`, {
+    return fetch(`${localPrefix}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    }).then(result => {
-      return result.json()
-    }).then(result => {
-      return result;
-    }).catch(err => {
-      console.log(err);
-    });
+    }).then(result => result.json())
+      .then(result => result)
+      .catch(err => err);
   },
   // sign in for a user
   signIn: function(email, password) {
@@ -135,7 +135,7 @@ module.exports = {
       password: password,
     };
 
-    return fetch(`https://dumpster.herokuapp.com/api/v1/users/login`, {
+    return fetch(`{localPrefix}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,4 +158,4 @@ const shuffle = (a) => {
     }
     resolve(a);
   })
-}
+};
