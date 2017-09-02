@@ -105,7 +105,6 @@ module.exports = {
         .then(result => {
           const sources = result.results.sources;
           const returnSources = sources.filter(source => newsSources.includes(source.id));
-          console.log(returnSources);
           resolve(returnSources);
         }).catch(err => reject(err));
     });

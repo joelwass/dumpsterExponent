@@ -35,7 +35,7 @@ class NewsPage extends React.Component {
   };
 
   _getTopNews = () => {
-    Api.getNewsFromRandom3Sources();
+    Api.getNewsSources();
   };
 
   _setModalVisible = () => {

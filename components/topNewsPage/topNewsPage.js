@@ -4,29 +4,29 @@ import {
   StyleSheet,
   Image,
   View,
-  Platform,
-  StatusBar,
-  Alert,
   Text,
   TouchableHighlight,
+  ListView,
 } from 'react-native';
 
 import * as Exponent from 'expo';
 import * as Api from '../../api/api.js';
 import { LoadingPage } from '../../components';
+import Row from './newsRow';
 
 import { connect } from 'react-redux';
 import * as actions from '../../modules/app/actions';
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class TopNewsPage extends React.Component {
 
   static navigationOptions = {
-    title: 'Today\'s Top News',
+    title: 'Top News Sources',
   };
 
   state = {
-    modalVisible: false,
     isReady: false,
+    dataSource: [],
   };
 
   componentWillMount() {
@@ -34,16 +34,14 @@ class TopNewsPage extends React.Component {
     console.log('component will mount?');
   };
 
-  _getTopNews = () => {
-    Api.getNewsSources();
-  };
-
-  _setModalVisible = () => {
-    this.setState({ modalVisible: true });
-  };
-
-  _setModalInvisible = () => {
-    this.setState({ modalVisible: false });
+  _getTopNews = async () => {
+    try {
+      const sources = await Api.getNewsSources();
+      console.log(sources);
+      this.setState({ dataSource: ds.cloneWithRows(sources), isReady: true });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   render() {
@@ -53,7 +51,13 @@ class TopNewsPage extends React.Component {
 
     return (
       <View style={ styles.container }>
-
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) => <Row {...rowData} /> }
+        />
+        <View>
+          <Text>Powered by NewsApi http://newsapi.org/</Text>
+        </View>
       </View>
     )
   }
@@ -74,6 +78,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    flexDirection:'row',
+    flexDirection:'column',
   },
 });
