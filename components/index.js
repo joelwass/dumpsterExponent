@@ -6,3 +6,5 @@ export { default as LoginPage } from './loginPage/loginPage';
 export { default as VocabModal } from './misc/vocabInfoModal';
 export { default as LearnMoreModal } from './learnMorePage/learnMore';
 export { default as LoadingPage } from './loadingPage/loadingPage';
+export { default as TopNewsPage } from './topNewsPage/topNewsPage';
+export { default as NewsPage } from './newsPage/newsPage';

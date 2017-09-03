@@ -17,6 +17,7 @@ import {
   StatsPage,
   LoginPage,
   VocabPlayPage,
+  TopNewsPage,
 } from '../../components';
 import * as actions from './actions';
 
@@ -26,6 +27,7 @@ const App = StackNavigator({
   Vocab: { screen: VocabPlayPage },
   Stats: { screen: StatsPage },
   Login: { screen: LoginPage },
+  TopNews: { screen: TopNewsPage },
 });
 
 App.displayName = 'Dumpster';
