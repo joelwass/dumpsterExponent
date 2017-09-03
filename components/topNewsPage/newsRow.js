@@ -46,10 +46,11 @@ const styles = StyleSheet.create({
 
 const imageMap = {
   'associated-press': require('../../assets/images/newsLogos/associated-press-full.png'),
-  'bloomberg': require('../../assets/images/newsLogos/bloomberg.jpg'),
-  'business-insider': require('../../assets/images/newsLogos/business-insider.jpg'),
-  'buzzfeed': require('../../assets/images/newsLogos/buzzfeed.svg'),
-  'fortune': require('../../assets/images/newsLogos/fortune.jpg'),
+  'bbc-news': require('../../assets/images/newsLogos/bbc-news.png'),
+  'bloomberg': require('../../assets/images/newsLogos/bloomberg.png'),
+  'business-insider': require('../../assets/images/newsLogos/business-insider.png'),
+  'buzzfeed': require('../../assets/images/newsLogos/buzzfeed.png'),
+  'fortune': require('../../assets/images/newsLogos/fortune.png'),
   'google-news': require('../../assets/images/newsLogos/google-news.png'),
   'techcrunch': require('../../assets/images/newsLogos/techcrunch.png'),
   'the-new-york-times': require('../../assets/images/newsLogos/the-new-york-times.png'),

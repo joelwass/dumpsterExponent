@@ -21,7 +21,7 @@ const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class TopNewsPage extends React.Component {
 
   static navigationOptions = {
-    title: 'Top News Sources',
+    title: 'Choose News Source',
   };
 
   state = {
@@ -37,7 +37,6 @@ class TopNewsPage extends React.Component {
   _getTopNews = async () => {
     try {
       const sources = await Api.getNewsSources();
-      console.log(sources);
       this.setState({ dataSource: ds.cloneWithRows(sources), isReady: true });
     } catch (e) {
       console.log(e);
