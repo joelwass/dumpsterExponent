@@ -1,16 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableHighlight,
+} from 'react-native';
 
-const Row = (props) => (
-  <View style={styles.rowContainer}>
-    <View style={styles.textContainer}>
-      <Image
-        style={styles.newsLogoView}
-        source={imageMap[props.id]}
-        resizeMode='contain'></Image>
-    </View>
-  </View>
-);
+class Row extends React.Component {
+  render() {
+    return (
+      <View style={styles.rowContainer}>
+        <View style={styles.textContainer}>
+          <TouchableHighlight
+            onPress={ () => this.props.navigateCallback() }>
+            <Image
+              style={styles.newsLogoView}
+              source={imageMap[this.props.id]}
+              resizeMode='contain'></Image>
+          </TouchableHighlight>
+        </View>
+      </View>
+    )
+  }
+}
 
 export default Row;
 
@@ -28,15 +40,6 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     flexDirection: 'column',
-  },
-  text: {
-    marginLeft: 12,
-    fontSize: 16,
-  },
-  photo: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
   },
   newsLogoView: {
     height: 80,

@@ -43,6 +43,11 @@ class TopNewsPage extends React.Component {
     }
   };
 
+  _navigateToNews = () => {
+    console.log('navigate to news?');
+    //this.props.navigation.navigate('News');
+  };
+
   render() {
     if (!this.state.isReady) {
       return <LoadingPage />;
@@ -55,7 +60,7 @@ class TopNewsPage extends React.Component {
           <ListView
             dataSource={this.state.dataSource}
             style={ styles.listView }
-            renderRow={(rowData) => <Row {...rowData} /> }
+            renderRow={(rowData) => <Row navigateCallback={ () => this._navigateToNews() } {...rowData} /> }
           />
         </View>
         <View
