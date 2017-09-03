@@ -51,11 +51,16 @@ class TopNewsPage extends React.Component {
 
     return (
       <View style={ styles.container }>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Row {...rowData} /> }
-        />
-        <View>
+        <View
+          style={ styles.listViewContainer }>
+          <ListView
+            dataSource={this.state.dataSource}
+            style={ styles.listView }
+            renderRow={(rowData) => <Row {...rowData} /> }
+          />
+        </View>
+        <View
+          style={ styles.poweredBy }>
           <Text>Powered by NewsApi http://newsapi.org/</Text>
         </View>
       </View>
@@ -80,4 +85,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection:'column',
   },
+  listView: {
+    flex: 1,
+  },
+  listViewContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  poweredBy: {
+
+  }
 });
