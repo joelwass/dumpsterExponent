@@ -4,46 +4,42 @@ import {
   StyleSheet,
   Image,
   View,
-  Platform,
-  StatusBar,
-  Alert,
   Text,
+  ListView,
   TouchableHighlight,
 } from 'react-native';
 
 import * as Exponent from 'expo';
 import * as Api from '../../api/api.js';
 import { LoadingPage } from '../../components';
+import Row from '../misc/newsRow';
 
 import { connect } from 'react-redux';
 import * as actions from '../../modules/app/actions';
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 class NewsPage extends React.Component {
 
   static navigationOptions = {
-    title: 'Today\'s Top News',
+    title: 'Today\'s Top News Stories',
   };
 
   state = {
-    modalVisible: false,
     isReady: false,
   };
 
   componentWillMount() {
-    this._getTopNews();
-    console.log('component will mount?');
+    this._getNews();
   };
 
-  _getTopNews = () => {
-    Api.getNewsSources();
+  _getNews = async () => {
+    const newsArticleResults = await Api.getNewsFromSource(this.props.navigation.state.params.source.id);
+    console.log(newsArticleResults);
+    this.setState({ dataSource: ds.cloneWithRows(newsArticleResults.results.articles), isReady: true });
   };
 
-  _setModalVisible = () => {
-    this.setState({ modalVisible: true });
-  };
+  _navigateToNews = (newsData) => {
 
-  _setModalInvisible = () => {
-    this.setState({ modalVisible: false });
   };
 
   render() {
@@ -53,27 +49,36 @@ class NewsPage extends React.Component {
 
     return (
       <View style={ styles.container }>
-
+        <View
+          style={ styles.listViewContainer }>
+          <ListView
+            dataSource={this.state.dataSource}
+            style={ styles.listView }
+            renderRow={(rowData) => <Row navigateCallback={ (sourceData) => this._navigateToNews(sourceData) } rowData={ rowData } /> }
+          />
+        </View>
+        <View>
+          <Text>Powered by NewsApi http://newsapi.org/</Text>
+        </View>
       </View>
     )
   }
 }
 
-NewsPage.propTypes = {
-};
-
-// all state and dispatch actions - this could get messy
-export default connect(
-  (state) => ({
-  }),
-  (dispatch) => ({
-  })
-)(NewsPage)
+export default NewsPage;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    flexDirection:'row',
+    flexDirection:'column',
   },
+  listView: {
+    flex: 1,
+  },
+  listViewContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 });

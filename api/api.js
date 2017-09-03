@@ -1,4 +1,4 @@
-const newsSources = ['associated-press', 'bloomberg', 'bbc-news', 'buzzfeed', 'business-insider', 'google-news', 'fortune', 'techcrunch', 'the-washington-post', 'the-new-york-times', 'the-wall-street-journal'];
+const newsSources = ['bbc-news', 'techcrunch', 'the-washington-post', 'the-new-york-times', 'the-wall-street-journal', 'associated-press', 'bloomberg',  'business-insider', 'google-news', 'fortune', 'buzzfeed'];
 const prodPrefix = 'https://dumpster.herokuapp.com/api/v1';
 const localPrefix = 'http://localhost:3000/api/v1';
 
@@ -10,8 +10,6 @@ module.exports = {
 
   // get trivia questions from database and store them locally
   getTriviaQuestion: function() {
-    console.log('getting trivia');
-
     return new Promise((resolve, reject) => {
       // if we have questions already, just return the next one, if not, grab them all again
       if (module.exports.triviaQuestions.length === module.exports.triviaIndex) {
@@ -95,7 +93,7 @@ module.exports = {
   },
   getNewsSources: function() {
     return new Promise((resolve, reject) => {
-      console.log('fetching vocab word details');
+      console.log('fetching news sources');
       return fetch(`${localPrefix}/fetchNewsSources`, {
         method: 'GET',
         headers: {
@@ -107,6 +105,19 @@ module.exports = {
           const returnSources = sources.filter(source => newsSources.includes(source.id));
           resolve(returnSources);
         }).catch(err => reject(err));
+    });
+  },
+  getNewsFromSource: function(source) {
+    return new Promise((resolve, reject) => {
+      console.log('fetching news');
+      return fetch(`${localPrefix}/fetchNews?source=${source}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then(result => result.json())
+        .then(result => resolve(result))
+        .catch(err => reject(err));
     });
   },
   createAccount: function(email, password) {

@@ -6,16 +6,16 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-class Row extends React.Component {
+class NewsSourceRow extends React.Component {
   render() {
     return (
       <View style={styles.rowContainer}>
         <View style={styles.textContainer}>
           <TouchableHighlight
-            onPress={ () => this.props.navigateCallback() }>
+            onPress={ () => this.props.navigateCallback(this.props.rowData) }>
             <Image
               style={styles.newsLogoView}
-              source={imageMap[this.props.id]}
+              source={imageMap[this.props.rowData.id]}
               resizeMode='contain'></Image>
           </TouchableHighlight>
         </View>
@@ -24,7 +24,7 @@ class Row extends React.Component {
   }
 }
 
-export default Row;
+export default NewsSourceRow;
 
 const styles = StyleSheet.create({
   rowContainer: {

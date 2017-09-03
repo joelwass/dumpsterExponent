@@ -12,7 +12,7 @@ import {
 import * as Exponent from 'expo';
 import * as Api from '../../api/api.js';
 import { LoadingPage } from '../../components';
-import Row from './newsRow';
+import Row from '../misc/newsSourceRow';
 
 import { connect } from 'react-redux';
 import * as actions from '../../modules/app/actions';
@@ -43,9 +43,10 @@ class TopNewsPage extends React.Component {
     }
   };
 
-  _navigateToNews = () => {
+  _navigateToNews = (sourceData) => {
     console.log('navigate to news?');
-    //this.props.navigation.navigate('News');
+    console.log(sourceData);
+    this.props.navigation.navigate('News', { source: sourceData });
   };
 
   render() {
@@ -60,11 +61,10 @@ class TopNewsPage extends React.Component {
           <ListView
             dataSource={this.state.dataSource}
             style={ styles.listView }
-            renderRow={(rowData) => <Row navigateCallback={ () => this._navigateToNews() } {...rowData} /> }
+            renderRow={(rowData) => <Row navigateCallback={ (sourceData) => this._navigateToNews(sourceData) } rowData={ rowData } /> }
           />
         </View>
-        <View
-          style={ styles.poweredBy }>
+        <View>
           <Text>Powered by NewsApi http://newsapi.org/</Text>
         </View>
       </View>
@@ -72,16 +72,7 @@ class TopNewsPage extends React.Component {
   }
 }
 
-TopNewsPage.propTypes = {
-};
-
-// all state and dispatch actions - this could get messy
-export default connect(
-  (state) => ({
-  }),
-  (dispatch) => ({
-  })
-)(TopNewsPage)
+export default TopNewsPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -96,8 +87,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  poweredBy: {
-
   }
 });
