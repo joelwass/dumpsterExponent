@@ -34,12 +34,11 @@ class NewsPage extends React.Component {
 
   _getNews = async () => {
     const newsArticleResults = await Api.getNewsFromSource(this.props.navigation.state.params.source.id);
-    console.log(newsArticleResults);
     this.setState({ dataSource: ds.cloneWithRows(newsArticleResults.results.articles), isReady: true });
   };
 
   _navigateToNews = (newsData) => {
-
+    this.props.navigation.navigate('Article', { source: newsData });
   };
 
   render() {
@@ -54,9 +53,11 @@ class NewsPage extends React.Component {
           <ListView
             dataSource={this.state.dataSource}
             style={ styles.listView }
-            renderRow={(rowData) => <Row navigateCallback={ (sourceData) => this._navigateToNews(sourceData) } rowData={ rowData } /> }
+            renderRow={(rowData) => <Row navigateCallback={ (newsData) => this._navigateToNews(newsData) } rowData={ rowData } /> }
           />
         </View>
+        <View
+          style={ styles.hrLine }></View>
         <View>
           <Text>Powered by NewsApi http://newsapi.org/</Text>
         </View>
@@ -75,6 +76,11 @@ const styles = StyleSheet.create({
   },
   listView: {
     flex: 1,
+  },
+  hrLine: {
+    height: 1,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
   listViewContainer: {
     flex: 1,

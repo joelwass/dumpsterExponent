@@ -16,13 +16,11 @@ export default class LoadingPage extends React.Component {
   render() {
     return (
       <View style={ styles.container }>
-
         <ActivityIndicator
           animating={ true }
           style={[styles.centering, { height: 80 }]}
           size="large">
         </ActivityIndicator>
-
       </View>
     )
   }

@@ -8,3 +8,4 @@ export { default as LearnMoreModal } from './learnMorePage/learnMore';
 export { default as LoadingPage } from './loadingPage/loadingPage';
 export { default as TopNewsPage } from './topNewsPage/topNewsPage';
 export { default as NewsPage } from './newsPage/newsPage';
+export { default as ArticleModal } from './misc/articleModal';

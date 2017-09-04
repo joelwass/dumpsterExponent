@@ -64,6 +64,8 @@ class TopNewsPage extends React.Component {
             renderRow={(rowData) => <Row navigateCallback={ (sourceData) => this._navigateToNews(sourceData) } rowData={ rowData } /> }
           />
         </View>
+        <View
+          style={ styles.hrLine }></View>
         <View>
           <Text>Powered by NewsApi http://newsapi.org/</Text>
         </View>
@@ -82,6 +84,11 @@ const styles = StyleSheet.create({
   },
   listView: {
     flex: 1,
+  },
+  hrLine: {
+    height: 1,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
   listViewContainer: {
     flex: 1,

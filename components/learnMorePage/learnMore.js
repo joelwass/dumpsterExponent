@@ -11,6 +11,7 @@ var {
 } = ReactNative;
 
 import * as Exponent from 'expo';
+import { LoadingPage } from '../../components';
 
 export default class LearnMore extends React.Component {
 
@@ -52,6 +53,7 @@ export default class LearnMore extends React.Component {
           <WebView
             source={{ uri: `https://en.wikipedia.org/wiki/${ this.props.correctAnswer.replace(/\s+/g, '_') }` }}
             style={ [styles.detailsContainer] }
+            startInLoadingState={true}
           />
         </Modal>
       </View>

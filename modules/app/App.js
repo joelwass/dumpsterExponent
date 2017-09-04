@@ -19,6 +19,7 @@ import {
   VocabPlayPage,
   TopNewsPage,
   NewsPage,
+  ArticleModal,
 } from '../../components';
 import * as actions from './actions';
 
@@ -30,6 +31,7 @@ const App = StackNavigator({
   Login: { screen: LoginPage },
   TopNews: { screen: TopNewsPage },
   News: { screen: NewsPage },
+  Article: { screen: ArticleModal },
 });
 
 App.displayName = 'Dumpster';
