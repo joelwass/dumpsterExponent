@@ -67,22 +67,24 @@ class VocabPage extends React.Component {
     } catch (err) {
       console.log(`error: ${ err }`);
     }
-  }
+  };
 
   _getNextWord = async () => {
     this.props.bumpVocabCount();
     this.setState({ isReady: false });
     const vocabTerm = await Api.getVocabTerm();
     this.setState({ currentWord: vocabTerm, isReady: true });
-  }
+  };
 
   _setModalVisible = () => {
+    console.log('setting visible');
     this.setState({ modalVisible: true });
-  }
+  };
 
   _setModalInvisible = () => {
+    console.log('setting invisible');
     this.setState({ modalVisible: false });
-  }
+  };
 
   render() {
 
@@ -109,7 +111,7 @@ class VocabPage extends React.Component {
 
         <VocabModal modalVisible={ this.state.modalVisible }
           wordDetails={ this.state.wordDetails }
-          closeModal={ this._setModalInvisible.bind(this) }/>
+          closeModal={ () => this._setModalInvisible() }/>
 
       </View>
     )

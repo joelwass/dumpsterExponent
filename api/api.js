@@ -13,7 +13,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       // if we have questions already, just return the next one, if not, grab them all again
       if (module.exports.triviaQuestions.length === module.exports.triviaIndex) {
-        return fetch(`${localPrefix}/trivia`, {
+        return fetch(`${prodPrefix}/trivia`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ module.exports = {
       console.log(module.exports.vocabWords.length);
       if (module.exports.vocabWords.length === 0) {
         console.log('fetching new words');
-        return fetch(`${localPrefix}/fetchVocab`, {
+        return fetch(`${prodPrefix}/fetchVocab`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ module.exports = {
   getVocabWordDetails: function(word) {
     return new Promise((resolve, reject) => {
       console.log('fetching vocab word details');
-      return fetch(`${localPrefix}/fetchWordDetails?word=${word}`, {
+      return fetch(`${prodPrefix}/fetchWordDetails?word=${word}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ module.exports = {
   getNewsSources: function() {
     return new Promise((resolve, reject) => {
       console.log('fetching news sources');
-      return fetch(`${localPrefix}/fetchNewsSources`, {
+      return fetch(`${prodPrefix}/fetchNewsSources`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ module.exports = {
   getNewsFromSource: function(source) {
     return new Promise((resolve, reject) => {
       console.log('fetching news');
-      return fetch(`${localPrefix}/fetchNews?source=${source}`, {
+      return fetch(`${prodPrefix}/fetchNews?source=${source}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ module.exports = {
       password: password,
     };
 
-    return fetch(`${localPrefix}/users`, {
+    return fetch(`${prodPrefix}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ module.exports = {
       password: password,
     };
 
-    return fetch(`{localPrefix}/users/login`, {
+    return fetch(`${prodPrefix}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

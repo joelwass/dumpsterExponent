@@ -44,8 +44,6 @@ class TopNewsPage extends React.Component {
   };
 
   _navigateToNews = (sourceData) => {
-    console.log('navigate to news?');
-    console.log(sourceData);
     this.props.navigation.navigate('News', { source: sourceData });
   };
 
@@ -64,9 +62,7 @@ class TopNewsPage extends React.Component {
             renderRow={(rowData) => <Row navigateCallback={ (sourceData) => this._navigateToNews(sourceData) } rowData={ rowData } /> }
           />
         </View>
-        <View
-          style={ styles.hrLine }></View>
-        <View>
+        <View style={{ backgroundColor: 'white', width: '100%', alignItems: 'center' }}>
           <Text>Powered by NewsApi http://newsapi.org/</Text>
         </View>
       </View>
@@ -84,11 +80,6 @@ const styles = StyleSheet.create({
   },
   listView: {
     flex: 1,
-  },
-  hrLine: {
-    height: 1,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
   },
   listViewContainer: {
     flex: 1,

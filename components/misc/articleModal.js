@@ -24,6 +24,10 @@ class ArticleModal extends React.Component {
     };
   }
 
+  _setLoaded = (huh) => {
+    console.log('loaded?', huh);
+  };
+
   _setErrorState = () => {
     this.setState({error: true});
   };
@@ -52,12 +56,11 @@ class ArticleModal extends React.Component {
             source={{ uri: this.props.navigation.state.params.source.url }}
             style={ styles.detailsContainer }
             onError={() => this._setErrorState()}
+            onLoad={() => this._setLoaded()}
             startInLoadingState={true}
           />
         </View>
-        <View
-          style={ styles.hrLine }></View>
-        <View>
+        <View style={{ backgroundColor: 'white', width: '100%', alignItems: 'center' }}>
           <Text>Powered by NewsApi http://newsapi.org/</Text>
         </View>
       </View>
@@ -80,10 +83,6 @@ var styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
-  },
-  hrLine: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
   },
   centering: {
     alignItems: 'center',

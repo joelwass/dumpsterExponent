@@ -1,7 +1,6 @@
-# dumpsterExponent
-Exponent dumpster project
+# Dumpster
 
-A trivia and vocab building app built with expo.io
+A trivia and vocab building, news curating, morning app built with expo.io
 
 Happy to answer any questions about the project
 

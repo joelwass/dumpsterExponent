@@ -14,6 +14,7 @@ export default class VocabModal extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log('constructed?');
     this.state = {
       transparent: false,
     };
