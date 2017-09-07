@@ -13,7 +13,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       // if we have questions already, just return the next one, if not, grab them all again
       if (module.exports.triviaQuestions.length === module.exports.triviaIndex) {
-        return fetch(`${prodPrefix}/trivia`, {
+        return fetch(`${localPrefix}/trivia`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -51,16 +51,18 @@ module.exports = {
       console.log(module.exports.vocabWords.length);
       if (module.exports.vocabWords.length === 0) {
         console.log('fetching new words');
-        return fetch(`${prodPrefix}/fetchVocab`, {
+        return fetch(`${localPrefix}/fetchVocab`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         }).then(result => result.json()).then(result => {
+          console.log(result);
+          if (!result.results || !result.results.results || !result.results.results.data) return Promise.reject(new Error('error getting vocab'));
           return shuffle(result.results.results.data);
         }).then(result => {
           module.exports.vocabWords = result;
-          resolve(module.exports.vocabWords.shift());
+          return resolve(module.exports.vocabWords.shift());
         }).catch(err => reject(err));
       } else {
         resolve(module.exports.vocabWords.shift());
@@ -70,12 +72,12 @@ module.exports = {
   getVocabWordDetails: function(word) {
     return new Promise((resolve, reject) => {
       console.log('fetching vocab word details');
-      return fetch(`${prodPrefix}/fetchWordDetails?word=${word}`, {
+      return fetch(`${localPrefix}/fetchVocabDetails?word=${word}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         }
-      }).then(result => resolve(result))
+      }).then(result => result.json()).then(result => resolve(result))
         .catch(err => reject(err));
     });
   },
@@ -94,7 +96,7 @@ module.exports = {
   getNewsSources: function() {
     return new Promise((resolve, reject) => {
       console.log('fetching news sources');
-      return fetch(`${prodPrefix}/fetchNewsSources`, {
+      return fetch(`${localPrefix}/fetchNewsSources`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +112,7 @@ module.exports = {
   getNewsFromSource: function(source) {
     return new Promise((resolve, reject) => {
       console.log('fetching news');
-      return fetch(`${prodPrefix}/fetchNews?source=${source}`, {
+      return fetch(`${localPrefix}/fetchNews?source=${source}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +129,7 @@ module.exports = {
       password: password,
     };
 
-    return fetch(`${prodPrefix}/users`, {
+    return fetch(`${localPrefix}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -145,7 +147,7 @@ module.exports = {
       password: password,
     };
 
-    return fetch(`${prodPrefix}/users/login`, {
+    return fetch(`${localPrefix}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -160,7 +162,6 @@ module.exports = {
 };
 
 const shuffle = (a) => {
-  console.log('shuffling');
   return new Promise( (resolve, reject) => {
     for (let i = a.length; i; i--) {
       let j = Math.floor(Math.random() * i);

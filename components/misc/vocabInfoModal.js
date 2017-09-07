@@ -15,7 +15,6 @@ class VocabModal extends React.Component {
   constructor(props) {
     super(props);
     console.log('constructed?');
-    console.log(props)
     this.state = {
       transparent: false,
     };
@@ -47,6 +46,14 @@ class VocabModal extends React.Component {
   }
 
   render() {
+    if (!this.props.wordDetails.results) {
+      return (
+        <View style={{ alignItems: 'center', padding: 20 }}>
+          <Text>We're sorry.... The Vocab page is temporarily unavailable. Please try back soon!</Text>
+        </View>
+      )
+    }
+
     if (typeof this.props.wordDetails.results === 'undefined') {
       return(
         <View></View>

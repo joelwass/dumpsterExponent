@@ -32,6 +32,7 @@ class VocabPage extends React.Component {
     animationType: 'slide',
     modalVisible: false,
     wordDetails: {},
+    error: undefined,
   }
 
   async componentWillMount() {
@@ -40,6 +41,7 @@ class VocabPage extends React.Component {
       this.setState({ currentWord: currentWord, isReady: true });
     } catch (e) {
       console.log(e);
+      this.setState({ error: e.message, isReady: true });
     }
   }
 
@@ -56,7 +58,13 @@ class VocabPage extends React.Component {
       } else {
 
         // get the word details from the api
-        let details = await Api.getVocabWordDetails(this.state.currentWord);
+        let details;
+        try {
+          details = await Api.getVocabWordDetails(this.state.currentWord);
+          console.log(details);
+        } catch (e) {
+          this.setState({ error: e.message });
+        }
 
         // need to json stringify the details object before putting it in async storage
         // don't forget to json parse it when taking it out!
@@ -91,6 +99,14 @@ class VocabPage extends React.Component {
     if (!this.state.isReady) {
       return (
         <LoadingPage />
+      )
+    }
+
+    if (this.state.error) {
+      return (
+        <View style={{ alignItems: 'center', padding: 20 }}>
+          <Text>We're sorry.... The Vocab page is temporarily unavailable. Please try back soon!</Text>
+        </View>
       )
     }
 
