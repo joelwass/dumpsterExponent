@@ -49,15 +49,15 @@ class NewsPage extends React.Component {
 
     return (
       <View style={ styles.container }>
-        <View
-          style={ styles.listViewContainer }>
+
           <ListView
             dataSource={this.state.dataSource}
             style={ styles.listView }
+            initialListSize={8}
             renderRow={(rowData) => <Row navigateCallback={ (newsData) => this._navigateToNews(newsData) } rowData={ rowData } /> }
           />
-        </View>
-        <View style={{ backgroundColor: 'white' }}>
+
+        <View style={{ backgroundColor: 'white', width: '100%', alignItems: 'center' }}>
           <Text>Powered by NewsApi http://newsapi.org/</Text>
         </View>
       </View>
@@ -70,15 +70,12 @@ export default NewsPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
     alignItems: 'center',
     flexDirection:'column',
   },
   listView: {
     flex: 1,
+    backgroundColor:'white'
   },
-  listViewContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  }
 });

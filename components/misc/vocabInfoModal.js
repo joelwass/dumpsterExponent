@@ -10,11 +10,12 @@ var {
 
 import * as Exponent from 'expo';
 
-export default class VocabModal extends React.Component {
+class VocabModal extends React.Component {
 
   constructor(props) {
     super(props);
     console.log('constructed?');
+    console.log(props)
     this.state = {
       transparent: false,
     };
@@ -81,6 +82,8 @@ export default class VocabModal extends React.Component {
     );
   }
 }
+
+export default VocabModal;
 
 var styles = StyleSheet.create({
   container: {
