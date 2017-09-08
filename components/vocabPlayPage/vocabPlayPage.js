@@ -52,7 +52,6 @@ class VocabPage extends React.Component {
       if (value !== null && typeof JSON.parse(value).success === 'undefined'){
 
         // We have data!!
-        console.log('got from async storage');
         await this.setState({ wordDetails: JSON.parse(value), isReady: true });
         this._setModalVisible();
       } else {
@@ -61,7 +60,6 @@ class VocabPage extends React.Component {
         let details;
         try {
           details = await Api.getVocabWordDetails(this.state.currentWord);
-          console.log(details);
         } catch (e) {
           this.setState({ error: e.message });
         }
@@ -69,7 +67,7 @@ class VocabPage extends React.Component {
         // need to json stringify the details object before putting it in async storage
         // don't forget to json parse it when taking it out!
         await AsyncStorage.setItem(`@DumpsterStore:${ this.state.currentWord }`, JSON.stringify(details));
-        await this.setState({ wordDetails: details, isReady: true });
+        await this.setState({ wordDetails: details.results, isReady: true });
         this._setModalVisible();
       }
     } catch (err) {
@@ -85,12 +83,10 @@ class VocabPage extends React.Component {
   };
 
   _setModalVisible = () => {
-    console.log('setting visible');
     this.setState({ modalVisible: true });
   };
 
   _setModalInvisible = () => {
-    console.log('setting invisible');
     this.setState({ modalVisible: false });
   };
 

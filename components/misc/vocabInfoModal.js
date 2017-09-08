@@ -6,6 +6,7 @@ var {
   Text,
   TouchableHighlight,
   View,
+  ScrollView,
 } = ReactNative;
 
 import * as Exponent from 'expo';
@@ -48,15 +49,17 @@ class VocabModal extends React.Component {
   render() {
     if (!this.props.wordDetails.results) {
       return (
-        <View style={{ alignItems: 'center', padding: 20 }}>
-          <Text>We're sorry.... The Vocab page is temporarily unavailable. Please try back soon!</Text>
-        </View>
-      )
-    }
-
-    if (typeof this.props.wordDetails.results === 'undefined') {
-      return(
-        <View></View>
+        <Modal
+          animationType={ 'slide' }
+          transparent={ this.state.transparent }
+          visible={ this.props.modalVisible }
+          supportedOrientations={ ['portrait'] }
+          style={ styles.container }
+        >
+          <View style={{ alignItems: 'center', padding: 20, backgroundColor: 'white' }}>
+            <Text>We're sorry.... The Vocab page is temporarily unavailable. Please try back soon!</Text>
+          </View>
+        </Modal>
       )
     }
 
@@ -69,21 +72,25 @@ class VocabModal extends React.Component {
           supportedOrientations={ ['portrait'] }
           style={ styles.container }
           >
+
           <TouchableHighlight
             onPress={ () => this.props.closeModal() }
             style={ [styles.modalCloseButton] }>
             <Text style={ styles.font }>Close</Text>
           </TouchableHighlight>
 
-          <View style={ styles.body }>
-            <Text style={ styles.font }>
-              <Text style={ [{ fontWeight: 'bold' }, styles.font] }>Word: </Text>
-              { this.props.wordDetails.word }.
-            </Text>
-            <View style={ styles.detailsContainer }>
-              { this._renderWordDetails() }
+          <ScrollView>
+            <View style={ styles.body }>
+              <Text style={ styles.font }>
+                <Text style={ [{ fontWeight: 'bold' }, styles.font] }>Word: </Text>
+                { this.props.wordDetails.word }.
+              </Text>
+              <View style={ styles.detailsContainer }>
+                { this._renderWordDetails() }
+              </View>
             </View>
-          </View>
+          </ScrollView>
+
         </Modal>
       </View>
     );

@@ -45,19 +45,19 @@ class SplashPage extends React.Component {
 
   _navigateToAdThenScreen = (screen) => {
     if (Platform.OS === 'ios') {
-      //FacebookAds.InterstitialAdManager.showAd('923608721056131_1433457360071262')
-      //  .then(didClick => {
-      //    this.props.navigation.navigate(screen)
-      //  }).catch(error => {
+      FacebookAds.InterstitialAdManager.showAd('923608721056131_1433457360071262')
+        .then(didClick => {
           this.props.navigation.navigate(screen)
-      //});
+        }).catch(error => {
+          this.props.navigation.navigate(screen)
+      });
     } else {
-      //FacebookAds.InterstitialAdManager.showAd('923608721056131_1434163006667364')
-      //  .then(didClick => {
-      //    this.props.navigation.navigate(screen)
-      //  }).catch(error => {
+      FacebookAds.InterstitialAdManager.showAd('923608721056131_1434163006667364')
+        .then(didClick => {
           this.props.navigation.navigate(screen)
-      //});
+        }).catch(error => {
+          this.props.navigation.navigate(screen)
+      });
     }
   }
 
