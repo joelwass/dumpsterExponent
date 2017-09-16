@@ -2,8 +2,8 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  Image,
   TouchableHighlight,
+  Text,
 } from 'react-native';
 
 class NewsSourceRow extends React.Component {
@@ -13,10 +13,7 @@ class NewsSourceRow extends React.Component {
         <View style={styles.textContainer}>
           <TouchableHighlight
             onPress={ () => this.props.navigateCallback(this.props.rowData) }>
-            <Image
-              style={styles.newsLogoView}
-              source={imageMap[this.props.rowData.id]}
-              resizeMode='contain'></Image>
+            <Text style={styles.newsTitle}>{this.props.rowData.name}</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -40,23 +37,9 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
   },
-  newsLogoView: {
-    height: 80,
-    width: '100%',
+  newsTitle: {
+    fontSize: 24,
   },
 });
-
-const imageMap = {
-  'associated-press': require('../../assets/images/newsLogos/associated-press-full.png'),
-  'bbc-news': require('../../assets/images/newsLogos/bbc-news.png'),
-  'bloomberg': require('../../assets/images/newsLogos/bloomberg.png'),
-  'business-insider': require('../../assets/images/newsLogos/business-insider.png'),
-  'buzzfeed': require('../../assets/images/newsLogos/buzzfeed.png'),
-  'fortune': require('../../assets/images/newsLogos/fortune.png'),
-  'google-news': require('../../assets/images/newsLogos/google-news.png'),
-  'techcrunch': require('../../assets/images/newsLogos/techcrunch.png'),
-  'the-new-york-times': require('../../assets/images/newsLogos/the-new-york-times.png'),
-  'the-wall-street-journal': require('../../assets/images/newsLogos/the-wall-street-journal.png'),
-  'the-washington-post': require('../../assets/images/newsLogos/the-washington-post.png')
-};

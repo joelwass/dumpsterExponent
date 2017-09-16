@@ -31,7 +31,6 @@ class TopNewsPage extends React.Component {
 
   componentWillMount() {
     this._getTopNews();
-    console.log('component will mount?');
   };
 
   _getTopNews = async () => {

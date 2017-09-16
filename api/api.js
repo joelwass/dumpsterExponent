@@ -7,6 +7,7 @@ module.exports = {
   vocabWords: [],
   triviaQuestions: [],
   triviaIndex: 0,
+  newsSourceData: [],
 
   // get trivia questions from database and store them locally
   getTriviaQuestion: function() {
@@ -96,6 +97,7 @@ module.exports = {
   getNewsSources: function() {
     return new Promise((resolve, reject) => {
       console.log('fetching news sources');
+      if (module.exports.newsSourceData.length > 0) return module.exports.newsSourceData;
       return fetch(`${prodPrefix}/fetchNewsSources`, {
         method: 'GET',
         headers: {
@@ -105,6 +107,7 @@ module.exports = {
         .then(result => {
           const sources = result.results.sources;
           const returnSources = sources.filter(source => newsSources.includes(source.id));
+          module.exports.newsSourceData = returnSources;
           resolve(returnSources);
         }).catch(err => reject(err));
     });
