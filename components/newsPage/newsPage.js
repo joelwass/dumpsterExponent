@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import * as Exponent from 'expo';
-import * as Api from '../../api/api.js';
+import Api from '../../api/api.js';
 import { LoadingPage } from '../../components';
 import Row from '../misc/newsRow';
 

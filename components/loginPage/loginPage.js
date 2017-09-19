@@ -16,7 +16,7 @@ import * as actions from '../../modules/app/actions';
 import Expo, {
   Font,
 } from 'expo';
-import * as Api from '../../api/api.js';
+import Api from '../../api/api.js';
 
 class LoginPage extends React.Component {
 

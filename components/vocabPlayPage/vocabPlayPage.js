@@ -14,7 +14,7 @@ import {
 import Expo, {
   Font,
 } from 'expo';
-import * as Api from '../../api/api.js';
+import Api from '../../api/api.js';
 import { VocabModal, LoadingPage } from '../../components';
 
 import { connect } from 'react-redux';

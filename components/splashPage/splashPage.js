@@ -19,7 +19,7 @@ import Expo, {
   FacebookAds,
 } from 'expo';
 const gifAddress = require('../../assets/images/DumpLoopTrans2.gif');
-import * as Api from '../../api/api.js';
+import Api from '../../api/api.js';
 
 class SplashPage extends React.Component {
 
@@ -40,6 +40,7 @@ class SplashPage extends React.Component {
     await Promise.all([
       Asset.fromModule(gifAddress).downloadAsync(),
     ]);
+    Api.getNewsSources();
     this.setState({ isReady: true });
   }
 
