@@ -13,7 +13,7 @@ import {
 
 import * as Exponent from 'expo';
 import { Entypo } from '@expo/vector-icons';
-import * as Api from '../../api/api.js';
+import Api from '../../api/api.js';
 import { LearnMoreModal, LoadingPage } from '../../components';
 
 import { connect } from 'react-redux';
