@@ -13,7 +13,9 @@ class NewsSourceRow extends React.Component {
         <TouchableHighlight
           onPress={ () => this.props.navigateCallback(this.props.rowData) }
           style={styles.buttonContainer}>
-          <Text style={styles.newsTitle}>{this.props.rowData.name}</Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.newsTitle}>{this.props.rowData.name}</Text>
+          </View>
         </TouchableHighlight>
       </View>
     )
@@ -35,7 +37,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     width: '100%',
+    height: 90,
     flexDirection: 'column',
+    alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
   },
   newsTitle: {
