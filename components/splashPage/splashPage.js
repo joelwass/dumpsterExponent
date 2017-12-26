@@ -40,7 +40,7 @@ class SplashPage extends React.Component {
     await Promise.all([
       Asset.fromModule(gifAddress).downloadAsync(),
     ]);
-    Api.getNewsSources();
+    //Api.getNewsSources();
     this.setState({ isReady: true });
   }
 
@@ -98,19 +98,21 @@ class SplashPage extends React.Component {
               Vocab Builder
             </Text>
           </TouchableHighlight>
-
-          <TouchableHighlight
-            onPress= { () => this._navigateToAdThenScreen('TopNews') }
-            style={ styles.button }>
-            <Text style={ styles.buttonText }>
-              Todays Top News
-            </Text>
-          </TouchableHighlight>
         </View>
       </View>
     )
   }
 }
+
+/*
+ <TouchableHighlight
+ onPress= { () => this._navigateToAdThenScreen('TopNews') }
+ style={ styles.button }>
+ <Text style={ styles.buttonText }>
+ Todays Top News
+ </Text>
+ </TouchableHighlight>
+ */
 
 SplashPage.propTypes = {
   loggedIn: PropTypes.bool.isRequired,

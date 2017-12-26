@@ -1,8 +1,8 @@
 {
   "name": "dumpster-expo",
-  "version": "1.0.1",
-  "description": "Hello Expo!",
-  "author": null,
+  "version": "2.0.0",
+  "description": "Dumpster! The trivia and vocab building application to build that brain while taking a dump.",
+  "author": "Joel Wasserman",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
