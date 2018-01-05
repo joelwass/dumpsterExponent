@@ -78,7 +78,10 @@ class SplashPage extends React.Component {
       );
     } else if (type === 'cancel') {
       // do something if the user cancelled the login request
-
+      Alert.alert(
+        'Boooooooo!',
+        `:(`
+      );
     }
   };
 
@@ -103,8 +106,6 @@ class SplashPage extends React.Component {
         />
 
         <View>
-
-
           { this.props.loggedIn ? (
             <View style={ styles.container }>
               <TouchableHighlight
@@ -113,7 +114,15 @@ class SplashPage extends React.Component {
               </TouchableHighlight>
             </View>
           ) : (
-
+            <View style={ styles.container }>
+              <TouchableHighlight
+                onPress= { () => this.props.navigation.navigate('Trivia') }
+                style={ styles.button }>
+                <Text style={ styles.buttonText }>
+                  Trivia Builder
+                </Text>
+              </TouchableHighlight>
+            </View>
           )}
         </View>
       </View>
