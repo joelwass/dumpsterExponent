@@ -86,15 +86,7 @@ class SplashPage extends React.Component {
             onPress= { () => this._navigateToAdThenScreen('Trivia') }
             style={ styles.button }>
             <Text style={ styles.buttonText }>
-              Trivia Builder
-            </Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            onPress= { () => this._navigateToAdThenScreen('Vocab') }
-            style={ styles.button }>
-            <Text style={ styles.buttonText }>
-              Vocab Builder
+              I'm ready to dump!
             </Text>
           </TouchableHighlight>
         </View>
@@ -103,23 +95,12 @@ class SplashPage extends React.Component {
   }
 }
 
-/*
- <TouchableHighlight
- onPress= { () => this._navigateToAdThenScreen('TopNews') }
- style={ styles.button }>
- <Text style={ styles.buttonText }>
- Todays Top News
- </Text>
- </TouchableHighlight>
- */
-
 SplashPage.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
   toggleLoggedIn: PropTypes.func.isRequired,
 };
 
-// all state and dispatch actions - this could get messy
 export default connect(
   (state) => ({
     loggedIn: state.Dumpster.loggedIn,
