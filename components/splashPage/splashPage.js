@@ -40,7 +40,6 @@ class SplashPage extends React.Component {
     await Promise.all([
       Asset.fromModule(gifAddress).downloadAsync(),
     ]);
-    //Api.getNewsSources();
     this.setState({ isReady: true });
   }
 
