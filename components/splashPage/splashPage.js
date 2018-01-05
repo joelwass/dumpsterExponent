@@ -61,6 +61,27 @@ class SplashPage extends React.Component {
     }
   }
 
+  _loginWithFacebook = async () => {
+    const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('923608721056131', {
+      permissions: ['public_profile'],
+    });
+    if (type === 'success') {
+      // Get the user's name using Facebook's Graph API
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}`);
+      const responseJson = await response.json();
+      this.props.toggleLoggedIn();
+      this.props.setUserId(responseJson.id);
+      Alert.alert(
+        'Logged in!',
+        `Hi ${responseJson.name}!`
+      );
+    } else if (type === 'cancel') {
+      // do something if the user cancelled the login request
+
+    }
+  };
+
   render() {
 
     if (!this.state.isReady) {
@@ -82,18 +103,33 @@ class SplashPage extends React.Component {
         />
 
         <View>
-          <TouchableHighlight
-            onPress= { () => this._navigateToAdThenScreen('Trivia') }
-            style={ styles.button }>
-            <Text style={ styles.buttonText }>
-              I'm ready to dump!
-            </Text>
-          </TouchableHighlight>
+
+
+          { this.props.loggedIn ? (
+            <View style={ styles.container }>
+              <TouchableHighlight
+                onPress={ this._loginWithFacebook }>
+                <Text>Login with Facebook</Text>
+              </TouchableHighlight>
+            </View>
+          ) : (
+
+          )}
         </View>
       </View>
     )
   }
 }
+
+/*
+ <TouchableHighlight
+ onPress= { () => this._navigateToAdThenScreen('Trivia') }
+ style={ styles.button }>
+ <Text style={ styles.buttonText }>
+ I'm ready to dump!
+ </Text>
+ </TouchableHighlight>
+ */
 
 SplashPage.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
