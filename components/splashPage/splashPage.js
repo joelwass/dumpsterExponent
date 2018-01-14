@@ -8,6 +8,7 @@ import {
   Text,
   Platform,
   TouchableHighlight,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux'
 import * as actions from '../../modules/app/actions';
@@ -71,7 +72,7 @@ class SplashPage extends React.Component {
         `https://graph.facebook.com/me?access_token=${token}`);
       const responseJson = await response.json();
       this.props.toggleLoggedIn();
-      this.props.setUserId(responseJson.id);
+      this.props.setUser(responseJson);
       Alert.alert(
         'Logged in!',
         `Hi ${responseJson.name}!`
@@ -106,7 +107,7 @@ class SplashPage extends React.Component {
         />
 
         <View>
-          { this.props.loggedIn ? (
+          { !this.props.loggedIn ? (
             <View style={ styles.container }>
               <TouchableHighlight
                 onPress={ this._loginWithFacebook }>
@@ -119,7 +120,7 @@ class SplashPage extends React.Component {
                 onPress= { () => this.props.navigation.navigate('Trivia') }
                 style={ styles.button }>
                 <Text style={ styles.buttonText }>
-                  Trivia Builder
+                  Trivia Wiki Game
                 </Text>
               </TouchableHighlight>
             </View>
@@ -130,31 +131,21 @@ class SplashPage extends React.Component {
   }
 }
 
-/*
- <TouchableHighlight
- onPress= { () => this._navigateToAdThenScreen('Trivia') }
- style={ styles.button }>
- <Text style={ styles.buttonText }>
- I'm ready to dump!
- </Text>
- </TouchableHighlight>
- */
-
 SplashPage.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  username: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   toggleLoggedIn: PropTypes.func.isRequired,
 };
 
 export default connect(
   (state) => ({
     loggedIn: state.Dumpster.loggedIn,
-    playAsGuest: state.Dumpster.playAsGuest,
-    username: state.Dumpster.username,
+    user: state.Dumpster.user,
   }),
   (dispatch) => ({
     toggleLoggedIn: () => dispatch(actions.toggleLoggedIn()),
     togglePlayAsGuest: () => dispatch(actions.togglePlayAsGuest()),
+    setUser: () => dispatch(actions.setUser()),
   })
 )(SplashPage)
 

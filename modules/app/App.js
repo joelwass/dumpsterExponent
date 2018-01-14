@@ -18,7 +18,6 @@ import {
   LoginPage,
   VocabPlayPage,
   TopNewsPage,
-  NewsPage,
   ArticleModal,
 } from '../../components';
 import * as actions from './actions';
@@ -30,7 +29,6 @@ const App = StackNavigator({
   Stats: { screen: StatsPage },
   Login: { screen: LoginPage },
   TopNews: { screen: TopNewsPage },
-  News: { screen: NewsPage },
   Article: { screen: ArticleModal },
 });
 
