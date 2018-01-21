@@ -46,7 +46,6 @@ class WikiGamePage extends React.Component {
 
     let correctAnswerIndex = Math.floor(Math.random() * 4);
     this.setState({ correctAnswerIndex, currentWikiQuestion: question });
-    console.log(this.state);
 
     // swap the correct answer into a random index
     let tmpCorrectAnswer = answers[0];
