@@ -117,10 +117,26 @@ class SplashPage extends React.Component {
           ) : (
             <View style={ styles.container }>
               <TouchableHighlight
+                onPress= { () => this.props.navigation.navigate('WikiGame') }
+                style={ styles.button }>
+                <Text style={ styles.buttonText }>
+                  Play Wiki Game
+                </Text>
+              </TouchableHighlight>
+
+              <TouchableHighlight
                 onPress= { () => this.props.navigation.navigate('Trivia') }
                 style={ styles.button }>
                 <Text style={ styles.buttonText }>
-                  Trivia Wiki Game
+                  Play Trivia
+                </Text>
+              </TouchableHighlight>
+
+              <TouchableHighlight
+                onPress= { () => this.props.navigation.navigate('Vocab') }
+                style={ styles.button }>
+                <Text style={ styles.buttonText }>
+                  Basic Vocab Builder
                 </Text>
               </TouchableHighlight>
             </View>
@@ -176,6 +192,8 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 2,
     borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'black',
     width: 250,
     alignItems: 'center',
     height: 30,

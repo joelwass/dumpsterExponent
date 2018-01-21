@@ -10,7 +10,7 @@ import {
 } from './constants'
 
 const initialState = {
-  loggedIn: false,
+  loggedIn: true,
   playAsGuest: false,
   correctTriviaCount: 0,
   skippedTriviaCount: 0,
@@ -41,7 +41,26 @@ export default handleActions({
       vocabCount: newCount,
     }
   },
+  [BUMP_CORRECT_TRIVIA]: (state, action) => {
+    const { correctTriviaCount } = state
+    const newCount = correctTriviaCount + 1;
+
+    return {
+      ...state,
+      correctTriviaCount: newCount,
+    }
+  },
+  [BUMP_INCORRECT_TRIVIA]: (state, action) => {
+    const { incorrectTriviaCount } = state
+    const newCount = incorrectTriviaCount + 1;
+
+    return {
+      ...state,
+      incorrectTriviaCount: newCount,
+    }
+  },
   [SET_USER]: (state, user) => {
+    // this is where we make the outbound network request to our backend to create our user and login
     return {
       ...state,
       user,

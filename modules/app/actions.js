@@ -36,6 +36,11 @@ export const bumpIncorrectTrivia = () => {
     type: BUMP_INCORRECT_TRIVIA,
   }
 };
+export const bumpCorrectTrivia = () => {
+  return {
+    type: BUMP_CORRECT_TRIVIA,
+  }
+};
 export const bumpVocabCount = () => {
   return {
     type: BUMP_VOCAB_COUNT,

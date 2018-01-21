@@ -1,5 +1,6 @@
 export { default as SplashPage } from './splashPage/splashPage';
 export { default as TriviaPage } from './triviaPage/triviaPage';
+export { default as WikiGamePage } from './wikiGamePage/wikiGame';
 export { default as VocabPlayPage } from './vocabPlayPage/vocabPlayPage';
 export { default as StatsPage } from './globalStatsPage/globalStats';
 export { default as LoginPage } from './loginPage/loginPage';
