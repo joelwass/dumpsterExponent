@@ -40,8 +40,8 @@ class WikiGamePage extends React.Component {
   _setAnswers = (question) => {
     let answers = [question.correctWiki.title,
       question.incorrectWikis[0].title,
-      question.incorrectWikis[0].title,
-      question.incorrectWikis[0].title
+      question.incorrectWikis[1].title,
+      question.incorrectWikis[2].title
     ];
 
     let correctAnswerIndex = Math.floor(Math.random() * 4);

@@ -245,6 +245,7 @@ const parseWikiResponseIntoCorrectAndIncorrect = (result) => {
         if (wikiIncorrectAnswers.length) newOption.incorrectWikis.push(wikiIncorrectAnswers.pop());
         else newOption.incorrectWikis.push(wikiCorrectAnswers.pop());
       }
+      console.log(newOption.incorrectWikis);
       wikiConstructedOptions.push(newOption);
     }
     resolve(wikiConstructedOptions);
