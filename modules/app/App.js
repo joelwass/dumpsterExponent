@@ -18,19 +18,19 @@ import {
   LoginPage,
   VocabPlayPage,
   TopNewsPage,
-  NewsPage,
   ArticleModal,
+  WikiGamePage,
 } from '../../components';
 import * as actions from './actions';
 
 const App = StackNavigator({
   Home: { screen: SplashPage },
   Trivia: { screen: TriviaPage },
+  WikiGame: { screen: WikiGamePage },
   Vocab: { screen: VocabPlayPage },
   Stats: { screen: StatsPage },
   Login: { screen: LoginPage },
   TopNews: { screen: TopNewsPage },
-  News: { screen: NewsPage },
   Article: { screen: ArticleModal },
 });
 

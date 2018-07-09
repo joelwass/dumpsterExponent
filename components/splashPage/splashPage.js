@@ -8,6 +8,7 @@ import {
   Text,
   Platform,
   TouchableHighlight,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux'
 import * as actions from '../../modules/app/actions';
@@ -40,7 +41,6 @@ class SplashPage extends React.Component {
     await Promise.all([
       Asset.fromModule(gifAddress).downloadAsync(),
     ]);
-    Api.getNewsSources();
     this.setState({ isReady: true });
   }
 
@@ -61,6 +61,30 @@ class SplashPage extends React.Component {
       });
     }
   }
+
+  _loginWithFacebook = async () => {
+    const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('923608721056131', {
+      permissions: ['public_profile'],
+    });
+    if (type === 'success') {
+      // Get the user's name using Facebook's Graph API
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}`);
+      const responseJson = await response.json();
+      this.props.toggleLoggedIn();
+      this.props.setUser(responseJson);
+      Alert.alert(
+        'Logged in!',
+        `Hi ${responseJson.name}!`
+      );
+    } else if (type === 'cancel') {
+      // do something if the user cancelled the login request
+      Alert.alert(
+        'Boooooooo!',
+        `:(`
+      );
+    }
+  };
 
   render() {
 
@@ -83,29 +107,40 @@ class SplashPage extends React.Component {
         />
 
         <View>
-          <TouchableHighlight
-            onPress= { () => this._navigateToAdThenScreen('Trivia') }
-            style={ styles.button }>
-            <Text style={ styles.buttonText }>
-              Trivia Builder
-            </Text>
-          </TouchableHighlight>
+          { !this.props.loggedIn ? (
+            <View style={ styles.container }>
+              <TouchableHighlight
+                onPress={ this._loginWithFacebook }>
+                <Text>Login with Facebook</Text>
+              </TouchableHighlight>
+            </View>
+          ) : (
+            <View style={ styles.container }>
+              <TouchableHighlight
+                onPress= { () => this.props.navigation.navigate('WikiGame') }
+                style={ styles.button }>
+                <Text style={ styles.buttonText }>
+                  Play Wiki Game
+                </Text>
+              </TouchableHighlight>
 
-          <TouchableHighlight
-            onPress= { () => this._navigateToAdThenScreen('Vocab') }
-            style={ styles.button }>
-            <Text style={ styles.buttonText }>
-              Vocab Builder
-            </Text>
-          </TouchableHighlight>
+              <TouchableHighlight
+                onPress= { () => this.props.navigation.navigate('Trivia') }
+                style={ styles.button }>
+                <Text style={ styles.buttonText }>
+                  Play Trivia
+                </Text>
+              </TouchableHighlight>
 
-          <TouchableHighlight
-            onPress= { () => this._navigateToAdThenScreen('TopNews') }
-            style={ styles.button }>
-            <Text style={ styles.buttonText }>
-              Todays Top News
-            </Text>
-          </TouchableHighlight>
+              <TouchableHighlight
+                onPress= { () => this.props.navigation.navigate('Vocab') }
+                style={ styles.button }>
+                <Text style={ styles.buttonText }>
+                  Basic Vocab Builder
+                </Text>
+              </TouchableHighlight>
+            </View>
+          )}
         </View>
       </View>
     )
@@ -114,20 +149,19 @@ class SplashPage extends React.Component {
 
 SplashPage.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  username: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   toggleLoggedIn: PropTypes.func.isRequired,
 };
 
-// all state and dispatch actions - this could get messy
 export default connect(
   (state) => ({
     loggedIn: state.Dumpster.loggedIn,
-    playAsGuest: state.Dumpster.playAsGuest,
-    username: state.Dumpster.username,
+    user: state.Dumpster.user,
   }),
   (dispatch) => ({
     toggleLoggedIn: () => dispatch(actions.toggleLoggedIn()),
     togglePlayAsGuest: () => dispatch(actions.togglePlayAsGuest()),
+    setUser: () => dispatch(actions.setUser()),
   })
 )(SplashPage)
 
@@ -158,6 +192,8 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 2,
     borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'black',
     width: 250,
     alignItems: 'center',
     height: 30,

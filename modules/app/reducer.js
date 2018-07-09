@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions'
 import {
   TOGGLE_LOGGED_IN,
   TOGGLE_PLAY_AS_GUEST,
-  SET_USERNAME,
+  SET_USER,
   BUMP_CORRECT_TRIVIA,
   BUMP_INCORRECT_TRIVIA,
   BUMP_VOCAB_COUNT,
@@ -10,12 +10,12 @@ import {
 } from './constants'
 
 const initialState = {
-  loggedIn: false,
+  loggedIn: true,
   playAsGuest: false,
   correctTriviaCount: 0,
   skippedTriviaCount: 0,
   vocabCount: 0,
-  username: '',
+  user: {},
   incorrectTriviaCount: 0,
 }
 
@@ -27,43 +27,9 @@ export default handleActions({
     const { loggedIn } = state
     const newLoggedIn = !loggedIn
 
-    //because payload contains the id and we already know that we are about
-    //to increment the value of that id, we modify only that value by one
-    console.log({
-      ...state,
-      loggedIn: newLoggedIn,
-    });
-
     return {
       ...state,
       loggedIn: newLoggedIn,
-    }
-  },
-  [TOGGLE_PLAY_AS_GUEST]: (state, action) => {
-    const { playAsGuest } = state
-    const newPlayAsGuest = !playAsGuest
-
-    return {
-      ...state,
-      playAsGuest: newPlayAsGuest,
-    }
-  },
-  [BUMP_CORRECT_TRIVIA]: (state, action) => {
-    const { correctTriviaCount } = state
-    const newCount = correctTriviaCount + 1;
-
-    return {
-      ...state,
-      correctTriviaCount: newCount,
-    }
-  },
-  [BUMP_SKIPPED_TRIVIA]: (state, action) => {
-    const { skippedTriviaCount } = state
-    const newCount = skippedTriviaCount + 1;
-
-    return {
-      ...state,
-      skippedTriviaCount: newCount,
     }
   },
   [BUMP_VOCAB_COUNT]: (state, action) => {
@@ -75,10 +41,13 @@ export default handleActions({
       vocabCount: newCount,
     }
   },
-  [SET_USERNAME]: (state, action) => {
+  [BUMP_CORRECT_TRIVIA]: (state, action) => {
+    const { correctTriviaCount } = state
+    const newCount = correctTriviaCount + 1;
+
     return {
       ...state,
-      username: action,
+      correctTriviaCount: newCount,
     }
   },
   [BUMP_INCORRECT_TRIVIA]: (state, action) => {
@@ -88,6 +57,13 @@ export default handleActions({
     return {
       ...state,
       incorrectTriviaCount: newCount,
+    }
+  },
+  [SET_USER]: (state, user) => {
+    // this is where we make the outbound network request to our backend to create our user and login
+    return {
+      ...state,
+      user,
     }
   },
 }, initialState)

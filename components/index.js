@@ -1,5 +1,6 @@
 export { default as SplashPage } from './splashPage/splashPage';
 export { default as TriviaPage } from './triviaPage/triviaPage';
+export { default as WikiGamePage } from './wikiGamePage/wikiGame';
 export { default as VocabPlayPage } from './vocabPlayPage/vocabPlayPage';
 export { default as StatsPage } from './globalStatsPage/globalStats';
 export { default as LoginPage } from './loginPage/loginPage';
@@ -7,5 +8,4 @@ export { default as VocabModal } from './misc/vocabInfoModal';
 export { default as LearnMoreModal } from './learnMorePage/learnMore';
 export { default as LoadingPage } from './loadingPage/loadingPage';
 export { default as TopNewsPage } from './topNewsPage/topNewsPage';
-export { default as NewsPage } from './newsPage/newsPage';
 export { default as ArticleModal } from './misc/articleModal';
