@@ -4,9 +4,7 @@ import {
   StyleSheet,
   Image,
   View,
-  StatusBar,
   Text,
-  Platform,
   TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux'
@@ -15,8 +13,6 @@ import { LoadingPage } from '../../components';
 
 import Expo, {
   Asset,
-  Font,
-  FacebookAds,
 } from 'expo';
 const gifAddress = require('../../assets/images/DumpLoopTrans2.gif');
 import Api from '../../api/api.js';
@@ -45,21 +41,7 @@ class SplashPage extends React.Component {
   }
 
   _navigateToAdThenScreen = (screen) => {
-    if (Platform.OS === 'ios') {
-      FacebookAds.InterstitialAdManager.showAd('923608721056131_1433457360071262')
-        .then(didClick => {
-          this.props.navigation.navigate(screen)
-        }).catch(error => {
-          this.props.navigation.navigate(screen)
-      });
-    } else {
-      FacebookAds.InterstitialAdManager.showAd('923608721056131_1434163006667364')
-        .then(didClick => {
-          this.props.navigation.navigate(screen)
-        }).catch(error => {
-          this.props.navigation.navigate(screen)
-      });
-    }
+    this.props.navigation.navigate(screen)
   }
 
   render() {
@@ -96,14 +78,6 @@ class SplashPage extends React.Component {
             style={ styles.button }>
             <Text style={ styles.buttonText }>
               Vocab Builder
-            </Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            onPress= { () => this._navigateToAdThenScreen('TopNews') }
-            style={ styles.button }>
-            <Text style={ styles.buttonText }>
-              Todays Top News
             </Text>
           </TouchableHighlight>
         </View>
