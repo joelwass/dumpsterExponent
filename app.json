@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Dumpster-Expo",
+    "description": "Build your brain while taking unavoidable trips to the bathroom with Dumpster's trivia and vocab builders!",
+    "slug": "Dumpster-Expo",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icons/DumpsterLogo512.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ivet.Dumpster-expo"
+    },
+    "android": {
+      "package": "com.ivet.Dumpster",
+      "versionCode": 2
+    }
+  }
+}
