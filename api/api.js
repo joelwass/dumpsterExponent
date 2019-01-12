@@ -46,8 +46,9 @@ class ApiService {
   // get wikipedia question options
   getWikiOptions() {
     return new Promise((resolve, reject) => {
+      console.log(this.wikiOptions.length, this.wikiIndex)
       // if we have questions already, just return the next one, if not, grab them all again
-      if (this.wikiOptions.length === this.wikiIndex) {
+      if (this.wikiOptions.length === 0 || this.wikiOptions.length === this.wikiIndex+1) {
         return fetch(wikiendpoint, {
           method: 'GET',
           headers: {
@@ -236,7 +237,7 @@ const parseWikiResponseIntoCorrectAndIncorrect = (result) => {
     while (wikiCorrectAnswers.length) {
       const correctWikiOption = wikiCorrectAnswers.pop();
       const answerRegex = new RegExp(`${correctWikiOption.title}`, 'g')
-      correctWikiOption.extract.replace(answerRegex, '_________');
+      correctWikiOption.extract = correctWikiOption.extract.replace(answerRegex, '_________');
       const newOption = {
         correctWiki: correctWikiOption,
         incorrectWikis: []

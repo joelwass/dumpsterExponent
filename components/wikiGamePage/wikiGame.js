@@ -17,9 +17,9 @@ import { LearnMoreModal, LoadingPage } from '../../components';
 
 import { connect } from 'react-redux';
 import * as actions from '../../modules/app/actions';
+import { composeAsync } from 'expo/build/MailComposer/MailComposer';
 
 class WikiGamePage extends React.Component {
-
   static navigationOptions = {
     title: 'Wiki Game',
   };
@@ -30,13 +30,37 @@ class WikiGamePage extends React.Component {
     currentWikiQuestion: {},
     modalVisible: false,
     isReady: false,
+    timerSeconds: 15
   };
 
   componentWillMount() {
     this._getNextQuestion();
   };
 
+  _setTimerTick = () => {
+    console.log(this.state.timerSeconds)
+    if (this.state.timerSeconds <= 0) {
+      clearTimeout(this.state.intervalHandle)
+      // pop a modal
+      Alert.alert(`Out of time! ${this.state.answers[this.state.correctAnswerIndex]} is the correct answer`, null,
+        [
+          {text: 'Learn More', onPress: () => this._setModalVisible()},
+          {text: 'Next', onPress: () => this._getNextQuestion()},
+        ],
+        { cancelable: true }
+      );
+      return
+    }
+    this.setState({ 
+      timerSeconds: parseFloat(this.state.timerSeconds - .1).toFixed(1),
+      hurryUp: (this.state.timerSeconds < 8)
+     })
+  }
+
   _setAnswers = (question) => {
+    clearTimeout(this.state.intervalHandle)
+    const interval = setInterval(this._setTimerTick, 100)
+    this.setState({ intervalHandle: interval })
     let answers = [question.correctWiki.title,
       question.incorrectWikis[0].title,
       question.incorrectWikis[1].title,
@@ -55,7 +79,7 @@ class WikiGamePage extends React.Component {
   };
 
   _getNextQuestion = async () => {
-    this.setState({ isReady: false });
+    this.setState({ isReady: false, timerSeconds: 15 });
     try {
       const currentWikiQuestion = await Api.getWikiOptions();
       this._setAnswers(currentWikiQuestion);
@@ -122,6 +146,16 @@ class WikiGamePage extends React.Component {
 
         <View ref="questionDisplayView"
               style={ styles.questionDisplay }>
+          <View ref="timerView" style={ styles.timer }>
+            <Text style={ styles.timerFont }>
+              { this.state.timerSeconds } s
+            </Text>
+          </View>
+          <View ref="timerView" style={ styles.timer }>
+            { this.state.hurryUp && <Text style={ styles.timerFont }>
+              Hurry Up!
+            </Text> }
+          </View>
           <View>
             <Text
               style={ [styles.title ] }
@@ -245,5 +279,12 @@ const styles = StyleSheet.create({
   },
   questionDisplay: {
     flex: 8,
+  },
+  timer: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  timerFont: {
+    fontSize: 24
   }
 });
