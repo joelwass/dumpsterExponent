@@ -140,7 +140,7 @@ class TriviaPage extends React.Component {
                 return (
                   <TouchableHighlight
                     key={ i }
-                    underlayColor="grey"
+                    underlayColor="green"
                     onPress={ () => this._answerSelected(i) }
                     style={ [styles.answerButton] }>
                     <Text
@@ -230,9 +230,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     marginLeft: 20,
-    marginTop: 5,
+    marginBottom: 25,
     marginRight: 20,
     borderRadius: 10,
+    padding: 2,
   },
   nextQuestion: {
     alignItems: 'center',

@@ -20,6 +20,7 @@ import Expo, {
 } from 'expo';
 const gifAddress = require('../../assets/images/DumpLoopTrans2.gif');
 import Api from '../../api/api.js';
+import { ACTION_BLUETOOTH_SETTINGS } from 'expo/build/IntentLauncherAndroid/IntentLauncherAndroid';
 
 class SplashPage extends React.Component {
 
@@ -86,7 +87,6 @@ class SplashPage extends React.Component {
   };
 
   render() {
-
     if (!this.state.isReady) {
       return (
         <LoadingPage />
@@ -117,7 +117,8 @@ class SplashPage extends React.Component {
             <View style={ styles.container }>
               <TouchableHighlight
                 onPress= { () => this.props.navigation.navigate('WikiGame') }
-                style={ styles.button }>
+                style={ styles.button }
+                underlayColor="#4db6ac">
                 <Text style={ styles.buttonText }>
                   Play Wiki Game
                 </Text>
@@ -125,7 +126,8 @@ class SplashPage extends React.Component {
 
               <TouchableHighlight
                 onPress= { () => this.props.navigation.navigate('Trivia') }
-                style={ styles.button }>
+                style={ styles.button }
+                underlayColor="#4db6ac">
                 <Text style={ styles.buttonText }>
                   Play Trivia
                 </Text>
@@ -133,7 +135,8 @@ class SplashPage extends React.Component {
 
               <TouchableHighlight
                 onPress= { () => this.props.navigation.navigate('Vocab') }
-                style={ styles.button }>
+                style={ styles.button }
+                underlayColor="#4db6ac">
                 <Text style={ styles.buttonText }>
                   Basic Vocab Builder
                 </Text>
@@ -166,8 +169,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   dumpsterTitle: {
-    marginTop: 5,
-    fontSize: 32,
+    marginTop: 25,
+    fontSize: 28,
+    borderBottomWidth: 2,
+    borderBottomColor: "gray",
   },
   gifContainer: {
     width: 300,
@@ -179,16 +184,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)',
   },
   buttonText: {
+    color: "white",
     fontSize: 20,
   },
   button: {
-    marginTop: 2,
-    marginBottom: 2,
+    color: "white",
+    backgroundColor: "#00897b",
+    marginTop: 6,
+    marginBottom: 6,
     borderRadius: 4,
-    borderWidth: 1,
-    borderColor: 'black',
+    padding: 10,
     width: 250,
     alignItems: 'center',
-    height: 30,
   },
 });
