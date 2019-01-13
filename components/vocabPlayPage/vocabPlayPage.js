@@ -34,7 +34,7 @@ class VocabPage extends React.Component {
     error: undefined,
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     try {
       const currentWord = await Api.getVocabTerm();
       this.setState({ currentWord: currentWord, isReady: true });

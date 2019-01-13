@@ -32,7 +32,7 @@ class TriviaPage extends React.Component {
     isReady: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this._getNextQuestion();
   };
 

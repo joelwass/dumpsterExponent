@@ -23,10 +23,6 @@ class StatsPage extends React.Component {
     appIsReady: false,
   }
 
-  componentWillMount() {
-
-  }
-
   render() {
 
     return (

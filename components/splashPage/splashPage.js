@@ -29,7 +29,7 @@ class SplashPage extends React.Component {
     isReady: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this._loadAssetsAsync();
   }
 

@@ -10,9 +10,6 @@ export default class LoadingPage extends React.Component {
   state = {
   }
 
-  componentWillMount() {
-  }
-
   render() {
     return (
       <View style={ styles.container }>

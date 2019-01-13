@@ -28,7 +28,7 @@ class TopNewsPage extends React.Component {
     dataSource: [],
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this._getTopNews();
   };
 

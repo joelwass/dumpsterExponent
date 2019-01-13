@@ -34,7 +34,7 @@ class WikiGamePage extends React.Component {
     timerColor: 'black',
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this._getNextQuestion();
   };
 
