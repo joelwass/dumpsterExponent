@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 20,
     fontWeight: 'bold',
+    color: '#757575',
   },
   answerButton: {
     alignSelf: 'stretch',
@@ -248,5 +249,5 @@ const styles = StyleSheet.create({
   },
   questionDisplay: {
     flex: 8,
-  }
+  },
 });

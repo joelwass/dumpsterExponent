@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Image,
   View,
-  StatusBar,
   Text,
   Platform,
   TouchableHighlight,
@@ -15,12 +14,9 @@ import { LoadingPage } from '../../components';
 
 import Expo, {
   Asset,
-  Font,
   FacebookAds,
 } from 'expo';
 const gifAddress = require('../../assets/images/DumpLoopTrans2.gif');
-import Api from '../../api/api.js';
-import { ACTION_BLUETOOTH_SETTINGS } from 'expo/build/IntentLauncherAndroid/IntentLauncherAndroid';
 
 class SplashPage extends React.Component {
 
@@ -188,7 +184,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   button: {
-    color: "white",
     backgroundColor: "#00897b",
     marginTop: 6,
     marginBottom: 6,
@@ -196,5 +191,8 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 250,
     alignItems: 'center',
+    shadowOffset:{  width: 4,  height: 4,  },
+    shadowColor: 'gray',
+    shadowOpacity: 0.5,
   },
 });

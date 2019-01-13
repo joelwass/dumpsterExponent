@@ -51,13 +51,10 @@ class WikiGamePage extends React.Component {
       );
       return
     } else if (this.state.timerSeconds <= 5) {
-      this.setState({
-        timerColor: 'red'
-      })
+      this.setState({ timerColor: 'red' })
     }
     this.setState({ 
       timerSeconds: parseFloat(this.state.timerSeconds - .1).toFixed(1),
-      hurryUp: (this.state.timerSeconds < 8)
      })
   }
 
@@ -83,7 +80,7 @@ class WikiGamePage extends React.Component {
   };
 
   _getNextQuestion = async () => {
-    this.setState({ isReady: false, timerSeconds: 15 });
+    this.setState({ isReady: false, timerSeconds: 15, timerColor: 'black' });
     try {
       const currentWikiQuestion = await Api.getWikiOptions();
       this._setAnswers(currentWikiQuestion);
@@ -152,14 +149,9 @@ class WikiGamePage extends React.Component {
         <View ref="questionDisplayView"
               style={ styles.questionDisplay }>
           <View ref="timerView" style={ styles.timer }>
-            <Text style={{color: this.state.timerColor}}>
+            <Text style={[{ color: this.state.timerColor }, styles.timerFont]}>
               { this.state.timerSeconds } s
             </Text>
-          </View>
-          <View ref="timerView" style={ styles.timer }>
-            { this.state.hurryUp && <Text style={ styles.timerFont }>
-              Hurry Up!
-            </Text> }
           </View>
           <View>
             <Text
@@ -260,6 +252,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 20,
     fontWeight: 'bold',
+    color: '#757575',
   },
   answerButton: {
     alignSelf: 'stretch',
