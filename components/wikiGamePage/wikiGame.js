@@ -30,7 +30,8 @@ class WikiGamePage extends React.Component {
     currentWikiQuestion: {},
     modalVisible: false,
     isReady: false,
-    timerSeconds: 15
+    timerSeconds: 15,
+    timerColor: 'black',
   };
 
   componentWillMount() {
@@ -38,7 +39,6 @@ class WikiGamePage extends React.Component {
   };
 
   _setTimerTick = () => {
-    console.log(this.state.timerSeconds)
     if (this.state.timerSeconds <= 0) {
       clearTimeout(this.state.intervalHandle)
       // pop a modal
@@ -50,10 +50,11 @@ class WikiGamePage extends React.Component {
         { cancelable: true }
       );
       return
+    } else if (this.state.timerSeconds <= 5) {
+      this.setState({ timerColor: 'red' })
     }
     this.setState({ 
       timerSeconds: parseFloat(this.state.timerSeconds - .1).toFixed(1),
-      hurryUp: (this.state.timerSeconds < 8)
      })
   }
 
@@ -79,7 +80,7 @@ class WikiGamePage extends React.Component {
   };
 
   _getNextQuestion = async () => {
-    this.setState({ isReady: false, timerSeconds: 15 });
+    this.setState({ isReady: false, timerSeconds: 15, timerColor: 'black' });
     try {
       const currentWikiQuestion = await Api.getWikiOptions();
       this._setAnswers(currentWikiQuestion);
@@ -98,6 +99,7 @@ class WikiGamePage extends React.Component {
 
   _answerSelected = (i) => {
     if (i === this.state.correctAnswerIndex) { // correct answer selected
+      clearTimeout(this.state.intervalHandle)
       Alert.alert(`Correct! ${this.state.answers[this.state.correctAnswerIndex]} is the correct answer`, null,
         [
           {text: 'Learn More', onPress: () => this._setModalVisible()},
@@ -147,14 +149,9 @@ class WikiGamePage extends React.Component {
         <View ref="questionDisplayView"
               style={ styles.questionDisplay }>
           <View ref="timerView" style={ styles.timer }>
-            <Text style={ styles.timerFont }>
+            <Text style={[{ color: this.state.timerColor }, styles.timerFont]}>
               { this.state.timerSeconds } s
             </Text>
-          </View>
-          <View ref="timerView" style={ styles.timer }>
-            { this.state.hurryUp && <Text style={ styles.timerFont }>
-              Hurry Up!
-            </Text> }
           </View>
           <View>
             <Text
@@ -172,7 +169,7 @@ class WikiGamePage extends React.Component {
                 return (
                   <TouchableHighlight
                     key={ i }
-                    underlayColor="grey"
+                    underlayColor="green"
                     onPress={ () => this._answerSelected(i) }
                     style={ [styles.answerButton] }>
                     <Text
@@ -255,6 +252,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 20,
     fontWeight: 'bold',
+    color: '#757575',
   },
   answerButton: {
     alignSelf: 'stretch',
@@ -285,6 +283,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   timerFont: {
-    fontSize: 24
+    fontSize: 24,
   }
 });
