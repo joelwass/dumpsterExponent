@@ -283,7 +283,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   timerFont: {
-    position: 'absolute',
     fontSize: 24,
   }
 });
