@@ -49,7 +49,7 @@ class SplashPage extends React.Component {
           this.props.navigation.navigate(screen)
       });
     } else {
-      FacebookAds.InterstitialAdManager.showAd('923608721056131_1434163006667364')
+      FacebookAds.InterstitialAdManager.showAd('923608721056131_2024004991016493')
         .then(didClick => {
           this.props.navigation.navigate(screen)
         }).catch(error => {
@@ -57,30 +57,6 @@ class SplashPage extends React.Component {
       });
     }
   }
-
-  _loginWithFacebook = async () => {
-    const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync('923608721056131', {
-      permissions: ['public_profile'],
-    });
-    if (type === 'success') {
-      // Get the user's name using Facebook's Graph API
-      const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}`);
-      const responseJson = await response.json();
-      this.props.toggleLoggedIn();
-      this.props.setUser(responseJson);
-      Alert.alert(
-        'Logged in!',
-        `Hi ${responseJson.name}!`
-      );
-    } else if (type === 'cancel') {
-      // do something if the user cancelled the login request
-      Alert.alert(
-        'Boooooooo!',
-        `:(`
-      );
-    }
-  };
 
   render() {
     if (!this.state.isReady) {
@@ -102,43 +78,34 @@ class SplashPage extends React.Component {
         />
 
         <View>
-          { !this.props.loggedIn ? (
-            <View style={ styles.container }>
-              <TouchableHighlight
-                onPress={ this._loginWithFacebook }>
-                <Text>Login with Facebook</Text>
-              </TouchableHighlight>
-            </View>
-          ) : (
-            <View style={ styles.container }>
-              <TouchableHighlight
-                onPress= { () => this.props.navigation.navigate('WikiGame') }
-                style={ styles.button }
-                underlayColor="#4db6ac">
-                <Text style={ styles.buttonText }>
-                  Play Wiki Game
-                </Text>
-              </TouchableHighlight>
+          <View style={ styles.container }>
+            <TouchableHighlight
+              onPress= { () => this.props.navigation._navigateToAdThenScreen('WikiGame') }
+              style={ styles.button }
+              underlayColor="#4db6ac">
+              <Text style={ styles.buttonText }>
+                Play Wiki Game
+              </Text>
+            </TouchableHighlight>
 
-              <TouchableHighlight
-                onPress= { () => this.props.navigation.navigate('Trivia') }
-                style={ styles.button }
-                underlayColor="#4db6ac">
-                <Text style={ styles.buttonText }>
-                  Play Trivia
-                </Text>
-              </TouchableHighlight>
+            <TouchableHighlight
+              onPress= { () => this.props.navigation._navigateToAdThenScreen('Trivia') }
+              style={ styles.button }
+              underlayColor="#4db6ac">
+              <Text style={ styles.buttonText }>
+                Play Trivia
+              </Text>
+            </TouchableHighlight>
 
-              <TouchableHighlight
-                onPress= { () => this.props.navigation.navigate('Vocab') }
-                style={ styles.button }
-                underlayColor="#4db6ac">
-                <Text style={ styles.buttonText }>
-                  Basic Vocab Builder
-                </Text>
-              </TouchableHighlight>
-            </View>
-          )}
+            <TouchableHighlight
+              onPress= { () => this.props.navigation._navigateToAdThenScreen('Vocab') }
+              style={ styles.button }
+              underlayColor="#4db6ac">
+              <Text style={ styles.buttonText }>
+                Basic Vocab Builder
+              </Text>
+            </TouchableHighlight>
+          </View>
         </View>
       </View>
     )
